@@ -233,3 +233,224 @@ button:hover {
     margin: 0 8px;
     color: #d1d5db;
 }
+
+/* ---------- Dashboard ---------- */
+
+.dashboard-body {
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+.topbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a3f8f;
+}
+
+.topbar-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.logout-link {
+    color: #0078a8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.dashboard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+.alert-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.stats-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    flex: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a3f8f;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.give-recognition-card,
+.feed-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.give-recognition-card h2,
+.feed-card h2 {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.card-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+select,
+textarea {
+    padding: 10px 12px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0078a8;
+    box-shadow: 0 0 0 3px rgba(0, 120, 168, 0.12);
+}
+
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.feed-item {
+    border: 1px solid #eef0f2;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.feed-names {
+    font-size: 13.5px;
+    color: #1a1a1a;
+}
+
+.feed-category {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a3f8f;
+    background: #eef2ff;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.feed-message {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.feed-time {
+    font-size: 11.5px;
+    color: #9ca3af;
+}
+
+.empty-state {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+
+
+.dashboard-tabs {
+    display: flex;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 0 40px;
+}
+
+.dashboard-tabs a {
+    padding: 16px 24px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.dashboard-tabs a:hover {
+    color: #2E7D32;
+    border-bottom: 3px solid #2E7D32;
+}
+
+.dashboard-tabs a.active {
+    color: #2E7D32;
+    border-bottom: 3px solid #2E7D32;
+}

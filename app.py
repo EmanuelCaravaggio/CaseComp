@@ -26,16 +26,55 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS recognitions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            from_user_id INTEGER NOT NULL,
+            to_user_id INTEGER NOT NULL,
+            category TEXT NOT NULL,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (from_user_id) REFERENCES users (id),
+            FOREIGN KEY (to_user_id) REFERENCES users (id)
+        )
+    """)
     conn.commit()
 
-    # Seed one demo user so you can log in immediately (remove later)
-    existing = conn.execute("SELECT * FROM users WHERE email = ?", ("demo@ops.on.ca",)).fetchone()
-    if not existing:
-        conn.execute(
-            "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
-            ("Demo User", "demo@ops.on.ca", generate_password_hash("password123")),
-        )
+    # Seed demo users so recognition feels like a real team (remove later)
+    demo_users = [
+        ("Demo User", "demo@ops.on.ca", "password123"),
+        ("Priya Nair", "priya.nair@ops.on.ca", "password123"),
+        ("Marcus Chen", "marcus.chen@ops.on.ca", "password123"),
+        ("Aisha Bello", "aisha.bello@ops.on.ca", "password123"),
+    ]
+    for name, email, pw in demo_users:
+        existing = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+        if not existing:
+            conn.execute(
+                "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+                (name, email, generate_password_hash(pw)),
+            )
+    conn.commit()
+
+    # Seed a couple of sample recognitions so the feed isn't empty on first run
+    count = conn.execute("SELECT COUNT(*) AS c FROM recognitions").fetchone()["c"]
+    if count == 0:
+        users = {row["email"]: row["id"] for row in conn.execute("SELECT id, email FROM users").fetchall()}
+        sample = [
+            (users["priya.nair@ops.on.ca"], users["demo@ops.on.ca"], "Teamwork",
+             "Thanks for jumping in to help troubleshoot the ministry laptop issue last-minute — saved the whole team a lot of stress!"),
+            (users["marcus.chen@ops.on.ca"], users["aisha.bello@ops.on.ca"], "Going Above & Beyond",
+             "Aisha stayed late to walk a new employee through their onboarding checklist step by step. That kind of patience matters."),
+            (users["demo@ops.on.ca"], users["marcus.chen@ops.on.ca"], "Innovation",
+             "Your idea to automate the ticket triage process is going to save the team hours every week."),
+        ]
+        for from_id, to_id, category, message in sample:
+            conn.execute(
+                "INSERT INTO recognitions (from_user_id, to_user_id, category, message) VALUES (?, ?, ?, ?)",
+                (from_id, to_id, category, message),
+            )
         conn.commit()
+
     conn.close()
 
 
@@ -109,15 +148,101 @@ def logout():
     return redirect(url_for("login"))
 
 
+RECOGNITION_CATEGORIES = [
+    "Teamwork",
+    "Innovation",
+    "Leadership",
+    "Going Above & Beyond",
+    "Client Service",
+    "Mentorship",
+]
+
+
 @app.route("/dashboard")
 def dashboard():
-    if not session.get("user_id"):
+    user_id = session.get("user_id")
+    if not user_id:
         return redirect(url_for("login"))
-    return f"""
-    <h1>Welcome, {session['user_name']}!</h1>
-    <p>This is a placeholder dashboard — next piece we'll build out.</p>
-    <a href='{url_for('logout')}'>Log out</a>
-    """
+
+    conn = get_db()
+
+    colleagues = conn.execute(
+        "SELECT id, name FROM users WHERE id != ? ORDER BY name", (user_id,)
+    ).fetchall()
+
+    feed = conn.execute("""
+        SELECT r.id, r.category, r.message, r.created_at,
+               sender.name AS from_name,
+               receiver.name AS to_name
+        FROM recognitions r
+        JOIN users sender ON r.from_user_id = sender.id
+        JOIN users receiver ON r.to_user_id = receiver.id
+        ORDER BY r.created_at DESC
+        LIMIT 20
+    """).fetchall()
+
+    given_count = conn.execute(
+        "SELECT COUNT(*) AS c FROM recognitions WHERE from_user_id = ?", (user_id,)
+    ).fetchone()["c"]
+    received_count = conn.execute(
+        "SELECT COUNT(*) AS c FROM recognitions WHERE to_user_id = ?", (user_id,)
+    ).fetchone()["c"]
+
+    conn.close()
+
+    return render_template(
+        "dashboard.html",
+        user_name=session["user_name"],
+        colleagues=colleagues,
+        feed=feed,
+        given_count=given_count,
+        received_count=received_count,
+        categories=RECOGNITION_CATEGORIES,
+    )
+
+
+@app.route("/recognition/give", methods=["POST"])
+def give_recognition():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    to_user_id = request.form.get("to_user_id")
+    category = request.form.get("category", "").strip()
+    message = request.form.get("message", "").strip()
+
+    if not to_user_id or not category or not message:
+        flash("Please fill out all fields to send recognition.", "error")
+        return redirect(url_for("dashboard"))
+
+    if str(to_user_id) == str(user_id):
+        flash("You can't send recognition to yourself.", "error")
+        return redirect(url_for("dashboard"))
+
+    conn = get_db()
+    conn.execute(
+        "INSERT INTO recognitions (from_user_id, to_user_id, category, message) VALUES (?, ?, ?, ?)",
+        (user_id, to_user_id, category, message),
+    )
+    conn.commit()
+    conn.close()
+
+    flash("Recognition sent!", "success")
+    return redirect(url_for("dashboard"))
+
+
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/mentorship")
+def mentorship():
+    return render_template("mentorship.html")
+
+@app.route("/connections")
+def connections():
+    return render_template("connections.html")
 
 
 if __name__ == "__main__":
