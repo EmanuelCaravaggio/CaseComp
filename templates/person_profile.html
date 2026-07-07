@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>{{ profile.name }}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<nav class="topbar">
+
+    <div class="topbar-brand">
+        Connect
+    </div>
+
+</nav>
+
+
+
+<main class="dashboard-container">
+
+
+<section class="feed-card">
+
+
+<h2>
+{{ profile.name }}
+</h2>
+
+
+<p class="connection-role">
+{{ profile.role }}
+</p>
+
+
+<span class="connection-status">
+{{ profile.department }}
+</span>
+
+
+<p class="feed-message">
+{{ profile.bio }}
+</p>
+
+
+
+<button class="message-btn">
+Message
+</button>
+
+
+</section>
+
+
+</main>
+
+
+</body>
+
+</html>

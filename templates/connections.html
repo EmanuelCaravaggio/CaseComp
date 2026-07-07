@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Connections</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<nav class="topbar">
+
+<div class="topbar-brand">
+
+<img src="{{ url_for('static', filename='logo_ops.png') }}"
+     alt="Connect logo"
+     class="topbar-logo">
+
+<span>Connect</span>
+
+</div>
+
+
+
+<div class="topbar-user">
+
+<span>
+Hi, {{ session['user_name'] }}
+</span>
+
+
+<a href="{{ url_for('logout') }}" class="logout-link">
+Log out
+</a>
+
+</div>
+
+</nav>
+
+
+
+
+<nav class="dashboard-tabs">
+
+<a href="{{ url_for('dashboard') }}">
+Dashboard
+</a>
+
+
+<a href="{{ url_for('profile') }}">
+Profile
+</a>
+
+
+<a href="{{ url_for('mentorship') }}">
+Mentorship
+</a>
+
+
+<a href="{{ url_for('connections') }}" class="active">
+Connections
+</a>
+
+</nav>
+
+
+
+
+
+<main class="dashboard-container">
+
+
+
+<div class="connection-search">
+
+<input 
+type="text"
+id="personSearch"
+placeholder="Search people by name, role, or department..."
+onkeyup="searchPeople()">
+
+
+<button class="search-btn"
+onclick="searchPeople()">
+Search
+</button>
+
+</div>
+
+
+
+
+
+<div class="dashboard-grid">
+
+
+
+
+
+<section class="feed-card">
+
+
+<h2>
+Suggested Connections
+</h2>
+
+
+<p class="card-subtitle">
+Expand your network across the organization.
+</p>
+
+
+
+<div class="feed-list">
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+PN
+</div>
+
+
+
+<div class="connection-details">
+
+<h3>
+Priya Nair
+</h3>
+
+
+<p class="connection-role">
+IT Support Specialist
+</p>
+
+
+<span class="connection-status">
+Suggested
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="connection-actions">
+
+<button class="connect-btn">
+Connect
+</button>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+MC
+</div>
+
+
+<div class="connection-details">
+
+
+<h3>
+Marcus Chen
+</h3>
+
+
+<p class="connection-role">
+Operations Analyst
+</p>
+
+
+<span class="connection-status">
+Suggested
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="connection-actions">
+
+<button class="connect-btn">
+Connect
+</button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section class="feed-card">
+
+
+<h2>
+Your Network
+</h2>
+
+
+<p class="card-subtitle">
+Recent connections and colleagues you engage with most.
+</p>
+
+
+
+
+<div class="feed-list">
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+ST
+</div>
+
+
+
+<div class="connection-details">
+
+<h3>
+Sarah Thompson
+</h3>
+
+
+<p class="connection-role">
+Program Advisor
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Sarah Thompson')">
+View Profile
+</button>
+
+
+
+<button class="message-btn"
+onclick="openChat('Sarah Thompson')">
+Message
+</button>
+
+
+</div>
+
+
+</div>
+
+<!-- David Kumar -->
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+DK
+</div>
+
+
+
+<div class="connection-details">
+
+<h3>
+David Kumar
+</h3>
+
+
+<p class="connection-role">
+Business Analyst
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('David Kumar')">
+View Profile
+</button>
+
+
+
+<button class="message-btn"
+onclick="openChat('David Kumar')">
+Message
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Emma Wilson -->
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+EW
+</div>
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Emma Wilson
+</h3>
+
+
+<p class="connection-role">
+Project Coordinator
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Emma Wilson')">
+View Profile
+</button>
+
+
+
+<button class="message-btn"
+onclick="openChat('Emma Wilson')">
+Message
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+</main>
+
+
+
+
+
+
+
+
+<!-- Chat Popup -->
+
+
+<div id="chatModal" class="chat-modal">
+
+
+<div class="chat-window">
+
+
+
+<div class="chat-header">
+
+
+<div>
+
+<h3 id="chatUserName">
+User
+</h3>
+
+
+<span>
+Online
+</span>
+
+
+</div>
+
+
+
+<button onclick="closeChat()">
+✕
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="chat-messages" id="chatMessages">
+
+</div>
+
+
+
+
+
+
+
+<div class="chat-input">
+
+
+<input 
+type="text"
+id="chatText"
+placeholder="Message..."
+onkeypress="handleEnter(event)">
+
+
+
+<button onclick="sendChatMessage()">
+Send
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+/* ---------- Search People ---------- */
+
+
+function searchPeople(){
+
+
+let input =
+document.getElementById("personSearch")
+.value
+.toLowerCase();
+
+
+
+let people =
+document.getElementsByClassName("person-card");
+
+
+
+for(let i = 0; i < people.length; i++){
+
+
+let content =
+people[i]
+.textContent
+.toLowerCase();
+
+
+
+if(content.includes(input)){
+
+
+people[i].style.display = "flex";
+
+
+}
+
+else{
+
+
+people[i].style.display = "none";
+
+
+}
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+/* ---------- Profile Navigation ---------- */
+
+
+function viewProfile(name){
+
+
+if(name === "Sarah Thompson"){
+
+window.location.href="/profile/sarah";
+
+}
+
+
+else if(name === "David Kumar"){
+
+window.location.href="/profile/david";
+
+}
+
+
+else if(name === "Emma Wilson"){
+
+window.location.href="/profile/emma";
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+/* ---------- Chat ---------- */
+
+
+function openChat(name){
+
+
+document.getElementById("chatUserName")
+.textContent = name;
+
+
+
+let chat =
+document.getElementById("chatMessages");
+
+
+
+chat.innerHTML = `
+
+<div class="message received">
+Hey! Nice connecting with you.
+</div>
+
+
+<div class="message received">
+How can I help you today?
+</div>
+
+`;
+
+
+
+document.getElementById("chatModal")
+.style.display="flex";
+
+
+
+}
+
+
+
+
+
+function closeChat(){
+
+
+document.getElementById("chatModal")
+.style.display="none";
+
+
+}
+
+
+
+
+
+
+
+function sendChatMessage(){
+
+
+
+let input =
+document.getElementById("chatText");
+
+
+
+let text =
+input.value.trim();
+
+
+
+if(text === ""){
+
+return;
+
+}
+
+
+
+
+let message =
+document.createElement("div");
+
+
+
+message.className =
+"message sent";
+
+
+
+message.textContent =
+text;
+
+
+
+document.getElementById("chatMessages")
+.appendChild(message);
+
+
+
+input.value="";
+
+
+
+let box =
+document.getElementById("chatMessages");
+
+
+box.scrollTop =
+box.scrollHeight;
+
+
+}
+
+
+
+
+
+
+
+function handleEnter(event){
+
+
+if(event.key === "Enter"){
+
+sendChatMessage();
+
+}
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+</body>
+
+</html>

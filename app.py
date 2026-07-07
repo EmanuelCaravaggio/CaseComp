@@ -245,6 +245,48 @@ def connections():
     return render_template("connections.html")
 
 
+
+@app.route("/profile/<person>")
+def person_profile(person):
+
+    profiles = {
+
+        "sarah": {
+            "name": "Sarah Thompson",
+            "role": "Program Advisor",
+            "department": "Student Services",
+            "bio": "Helping teams improve programs and employee engagement."
+        },
+
+
+        "david": {
+            "name": "David Kumar",
+            "role": "Business Analyst",
+            "department": "Operations",
+            "bio": "Focused on analytics, reporting, and process improvement."
+        },
+
+
+        "emma": {
+            "name": "Emma Wilson",
+            "role": "Project Coordinator",
+            "department": "Projects",
+            "bio": "Coordinates projects and supports cross-functional teams."
+        }
+
+    }
+
+
+    profile = profiles.get(person)
+
+
+    return render_template(
+        "person_profile.html",
+        profile=profile
+    )
+
+
+
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)
