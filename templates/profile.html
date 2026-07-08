@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<!-- TOP BAR -->
+
+<nav class="topbar">
+
+<div class="topbar-brand">
+
+<img src="{{ url_for('static', filename='logo_ops.png') }}"
+class="topbar-logo">
+
+<span>
+Connect
+</span>
+
+</div>
+
+
+<div class="topbar-user">
+
+<span>
+Hi, {{ user_name }}
+</span>
+
+
+<a href="{{ url_for('logout') }}"
+class="logout-link">
+
+Log out
+
+</a>
+
+</div>
+
+
+</nav>
+
+
+
+
+
+<!-- NAVIGATION -->
+
+<nav class="dashboard-tabs">
+
+<a href="{{ url_for('dashboard') }}">
+Dashboard
+</a>
+
+
+<a href="{{ url_for('profile') }}"
+class="active">
+
+Profile
+
+</a>
+
+
+<a href="{{ url_for('mentorship') }}">
+Mentorship
+</a>
+
+
+<a href="{{ url_for('connections') }}">
+Connections
+</a>
+
+
+</nav>
+
+
+
+
+
+
+
+
+
+<main class="dashboard-container">
+
+
+
+
+
+
+<!-- PROFILE HEADER -->
+
+
+<section class="profile-header-card">
+
+
+<div class="profile-avatar-large">
+
+JG
+
+</div>
+
+
+<div class="profile-info">
+
+<h1>
+Johan Geosy
+</h1>
+
+
+<p>
+Computer Science Student • IT Department
+</p>
+
+
+<span class="profile-role">
+
+Connect Member
+
+</span>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<button class="add-section-btn"
+onclick="openSectionModal()">
+
++ Add Section
+
+</button>
+
+
+
+
+
+
+
+
+
+
+<!-- ABOUT -->
+
+<section class="profile-section-card">
+
+
+<div class="section-header">
+
+<h2>
+About Me
+</h2>
+
+
+<div>
+
+<button class="edit-btn"
+onclick="editExistingSection(this)" >
+Edit
+</button>
+
+
+<button class="delete-section-btn"
+onclick="deleteSection(this)">
+Delete
+</button>
+
+</div>
+
+
+</div>
+
+
+
+<p>
+
+Computer Science student passionate about technology,
+software development, and creating solutions that improve
+workplace collaboration.
+
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- SKILLS -->
+
+<section class="profile-section-card">
+
+
+<div class="section-header">
+
+
+<h2>
+Skills
+</h2>
+
+
+
+<div>
+
+<button class="add-skill-btn"
+onclick="openSkillModal()">
+
++ Add Skill
+
+</button>
+
+
+<button class="delete-section-btn"
+onclick="deleteSection(this)">
+Delete
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="skillContainer"
+class="skill-container">
+
+
+
+<button class="skill-tag">
+
+Python
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+</button>
+
+
+
+
+<button class="skill-tag">
+
+Java
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+</button>
+
+
+
+
+
+<button class="skill-tag">
+
+SQL
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+</button>
+
+
+
+
+
+<button class="skill-tag">
+
+Flask
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+</button>
+
+
+
+
+
+<button class="skill-tag">
+
+Docker
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+</button>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- EXPERIENCE -->
+
+<section class="profile-section-card">
+
+
+<div class="section-header">
+
+<h2>
+Experience
+</h2>
+
+
+<div>
+
+<button class="edit-btn"
+onclick="editExistingSection(this)" >
+Edit
+</button>
+
+
+<button class="delete-section-btn"
+onclick="deleteSection(this)">
+Delete
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<p>
+
+IT Assistant - Provided technical support,
+computer deployment, troubleshooting,
+and system maintenance.
+
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- PROJECTS -->
+
+<section class="profile-section-card">
+
+
+<div class="section-header">
+
+
+<h2>
+Projects
+</h2>
+
+
+<div>
+
+<button class="edit-btn"
+onclick="editExistingSection(this)" > 
+Edit
+</button>
+
+
+<button class="delete-section-btn"
+onclick="deleteSection(this)">
+Delete
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<p>
+
+MultiBLAST - Bioinformatics application for
+protein sequence analysis.
+
+<br><br>
+
+Connect - Employee networking and recognition platform.
+
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CUSTOM SECTIONS -->
+
+<div id="customSections">
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RECOGNITION -->
+
+<section class="profile-section-card">
+
+
+<div class="section-header">
+
+<h2>
+⭐ Recognition Received
+</h2>
+
+</div>
+
+
+
+
+<div class="recognition-card">
+
+
+<div class="recognition-header">
+
+<strong>
+Sarah Thompson
+</strong>
+
+
+<span class="feed-category">
+Team Player
+</span>
+
+
+</div>
+
+
+<p>
+
+Always willing to support teammates and solve problems.
+
+</p>
+
+
+<span class="feed-time">
+2 days ago
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="recognition-card">
+
+
+<div class="recognition-header">
+
+<strong>
+Marcus Chen
+</strong>
+
+
+<span class="feed-category">
+Innovation
+</span>
+
+
+</div>
+
+
+<p>
+
+Created improvements that helped make workflows easier.
+
+</p>
+
+
+<span class="feed-time">
+1 week ago
+</span>
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+<!-- ADD SECTION MODAL -->
+
+
+<div id="sectionModal"
+class="profile-modal">
+
+
+<div class="modal-box">
+
+
+<h2>
+Add Section
+</h2>
+
+
+
+<label>
+Section Template
+</label>
+
+
+<select id="sectionType"
+onchange="loadTemplate()">
+
+
+
+<option value="">
+Choose one
+</option>
+
+
+<option>
+About Me
+</option>
+
+
+<option>
+Skills
+</option>
+
+
+<option>
+Experience
+</option>
+
+
+<option>
+Education
+</option>
+
+
+<option>
+Projects
+</option>
+
+
+<option>
+Certifications
+</option>
+
+
+<option>
+Achievements
+</option>
+
+
+<option>
+Volunteer Experience
+</option>
+
+
+<option>
+Languages
+</option>
+
+
+<option>
+Interests
+</option>
+
+
+<option>
+Custom
+</option>
+
+
+
+</select>
+
+
+
+
+
+<input id="sectionTitle"
+placeholder="Section title">
+
+
+
+
+
+<textarea id="sectionContent"
+placeholder="Content">
+
+</textarea>
+
+
+
+
+
+<button onclick="saveSection()">
+
+Save
+
+</button>
+
+
+
+<button onclick="closeSectionModal()">
+
+Cancel
+
+</button>
+
+
+
+
+</div>
+
+</div>
+
+
+<!-- EDIT SECTION MODAL -->
+
+<div id="editModal"
+class="profile-modal">
+
+
+<div class="modal-box">
+
+
+<h2>
+Edit Section
+</h2>
+
+
+
+<input id="editTitle">
+
+
+<textarea id="editContent"></textarea>
+
+
+
+
+<button onclick="saveEdit()">
+
+Save Changes
+
+</button>
+
+
+
+<button onclick="closeEditModal()">
+
+Cancel
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<!-- SKILL MODAL -->
+
+<div id="skillModal"
+class="profile-modal">
+
+
+<div class="modal-box">
+
+
+<h2>
+Add Skill
+</h2>
+
+
+
+
+<select id="skillSelect">
+
+
+<option value="">
+Choose Skill
+</option>
+
+
+<option>
+Python
+</option>
+
+
+<option>
+Java
+</option>
+
+
+<option>
+C++
+</option>
+
+
+<option>
+JavaScript
+</option>
+
+
+<option>
+SQL
+</option>
+
+
+<option>
+Flask
+</option>
+
+
+<option>
+React
+</option>
+
+
+<option>
+Docker
+</option>
+
+
+<option>
+Git
+</option>
+
+
+<option>
+Linux
+</option>
+
+
+<option>
+Machine Learning
+</option>
+
+
+<option>
+Artificial Intelligence
+</option>
+
+
+<option>
+Communication
+</option>
+
+
+<option>
+Leadership
+</option>
+
+
+<option>
+Project Management
+</option>
+
+
+</select>
+
+
+
+
+<input id="customSkill"
+placeholder="Create custom skill">
+
+
+
+
+
+<button onclick="saveSkill()">
+
+Add
+
+</button>
+
+
+
+<button onclick="closeSkillModal()">
+
+Cancel
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+let currentEditingSection = null;
+
+
+
+function editExistingSection(button){
+
+
+currentEditingSection =
+button.closest(".profile-section-card");
+
+
+
+let title =
+currentEditingSection.querySelector("h2").innerText;
+
+
+
+let content =
+currentEditingSection.querySelector("p").innerText;
+
+
+
+document.getElementById("editTitle").value =
+title;
+
+
+
+document.getElementById("editContent").value =
+content;
+
+
+
+document.getElementById("editModal")
+.style.display="flex";
+
+
+}
+
+
+
+
+
+function closeEditModal(){
+
+document.getElementById("editModal")
+.style.display="none";
+
+}
+
+
+
+
+
+function saveEdit(){
+
+
+let title =
+document.getElementById("editTitle").value;
+
+
+
+let content =
+document.getElementById("editContent").value;
+
+
+
+currentEditingSection
+.querySelector("h2")
+.innerText = title;
+
+
+
+currentEditingSection
+.querySelector("p")
+.innerText = content;
+
+
+
+closeEditModal();
+
+
+}
+
+
+
+
+
+let editingSection = null;
+
+
+
+const templates = {
+
+
+"About Me":
+"Write about yourself.",
+
+
+"Skills":
+"List your skills.",
+
+
+"Experience":
+"Describe your experience.",
+
+
+"Education":
+"Add your education history.",
+
+
+"Projects":
+"Describe your projects.",
+
+
+"Certifications":
+"Add certifications.",
+
+
+"Achievements":
+"Add achievements.",
+
+
+"Volunteer Experience":
+"Describe volunteer experience.",
+
+
+"Languages":
+"Add languages.",
+
+
+"Interests":
+"Share your interests.",
+
+
+"Custom":
+"Create your own section."
+
+
+};
+
+
+
+
+
+function openSectionModal(){
+
+document.getElementById("sectionModal")
+.style.display="flex";
+
+}
+
+
+
+function closeSectionModal(){
+
+document.getElementById("sectionModal")
+.style.display="none";
+
+}
+
+
+
+
+function loadTemplate(){
+
+
+let type =
+document.getElementById("sectionType").value;
+
+
+
+document.getElementById("sectionTitle").value=type;
+
+
+document.getElementById("sectionContent").value =
+templates[type] || "";
+
+
+}
+
+
+
+
+
+
+
+function saveSection(){
+
+
+let title =
+document.getElementById("sectionTitle").value;
+
+
+let content =
+document.getElementById("sectionContent").value;
+
+
+
+if(editingSection){
+
+
+editingSection.querySelector("h2").innerText=title;
+
+editingSection.querySelector("p").innerText=content;
+
+
+editingSection=null;
+
+
+}
+
+else{
+
+
+createSection(title,content);
+
+
+}
+
+
+
+closeSectionModal();
+
+
+}
+
+
+
+
+
+
+
+
+function createSection(title,content){
+
+
+let section =
+document.createElement("section");
+
+
+section.className =
+"profile-section-card";
+
+
+
+section.innerHTML = `
+
+<div class="section-header">
+
+<h2>${title}</h2>
+
+
+<div>
+
+<button class="edit-btn"
+onclick="editExistingSection(this)">
+Edit
+</button>
+
+
+<button class="delete-section-btn"
+onclick="deleteSection(this)">
+Delete
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<p>
+${content}
+</p>
+
+`;
+
+
+
+document
+.getElementById("customSections")
+.appendChild(section);
+
+
+}
+
+
+
+
+
+
+
+function editSection(button){
+
+
+editingSection =
+button.closest(".profile-section-card");
+
+
+document.getElementById("sectionTitle").value =
+editingSection.querySelector("h2").innerText;
+
+
+document.getElementById("sectionContent").value =
+editingSection.querySelector("p").innerText;
+
+
+openSectionModal();
+
+
+}
+
+
+
+
+
+
+function deleteSection(button){
+
+
+button.closest(".profile-section-card")
+.remove();
+
+
+}
+
+
+
+
+
+
+
+
+
+function openSkillModal(){
+
+document.getElementById("skillModal")
+.style.display="flex";
+
+}
+
+
+
+function closeSkillModal(){
+
+document.getElementById("skillModal")
+.style.display="none";
+
+}
+
+
+
+
+function saveSkill(){
+
+
+let selected =
+document.getElementById("skillSelect").value;
+
+
+
+let custom =
+document.getElementById("customSkill").value;
+
+
+
+let skill =
+custom.trim() !== ""
+?
+custom
+:
+selected;
+
+
+
+if(skill===""){
+    return;
+}
+
+
+
+
+let button =
+document.createElement("button");
+
+
+
+button.className="skill-tag";
+
+
+
+button.innerHTML =
+`
+${skill}
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+`;
+
+
+
+document
+.getElementById("skillContainer")
+.appendChild(button);
+
+
+
+document.getElementById("customSkill").value="";
+
+
+closeSkillModal();
+
+
+}
+
+
+
+
+
+function removeSkill(element){
+
+element.parentElement.remove();
+
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>

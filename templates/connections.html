@@ -3,12 +3,12 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connections</title>
+    <title>Connections</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
@@ -16,60 +16,77 @@
 <body class="dashboard-body">
 
 
+
+<!-- Top Navigation -->
+
 <nav class="topbar">
 
-<div class="topbar-brand">
 
-<img src="{{ url_for('static', filename='logo_ops.png') }}"
-     alt="Connect logo"
-     class="topbar-logo">
+    <div class="topbar-brand">
 
-<span>Connect</span>
+        <img src="{{ url_for('static', filename='logo_ops.png') }}"
+             alt="Connect logo"
+             class="topbar-logo">
 
-</div>
+        <span>
+            Connect
+        </span>
 
-
-
-<div class="topbar-user">
-
-<span>
-Hi, {{ session['user_name'] }}
-</span>
+    </div>
 
 
-<a href="{{ url_for('logout') }}" class="logout-link">
-Log out
-</a>
 
-</div>
+
+    <div class="topbar-user">
+
+        <span>
+            Hi, {{ session['user_name'] }}
+        </span>
+
+
+        <a href="{{ url_for('logout') }}" class="logout-link">
+            Log out
+        </a>
+
+    </div>
+
 
 </nav>
 
 
+
+
+
+
+<!-- Dashboard Tabs -->
 
 
 <nav class="dashboard-tabs">
 
-<a href="{{ url_for('dashboard') }}">
-Dashboard
-</a>
+
+    <a href="{{ url_for('dashboard') }}">
+        Dashboard
+    </a>
 
 
-<a href="{{ url_for('profile') }}">
-Profile
-</a>
+    <a href="{{ url_for('profile') }}">
+        Profile
+    </a>
 
 
-<a href="{{ url_for('mentorship') }}">
-Mentorship
-</a>
+    <a href="{{ url_for('mentorship') }}">
+        Mentorship
+    </a>
 
 
-<a href="{{ url_for('connections') }}" class="active">
-Connections
-</a>
+    <a href="{{ url_for('connections') }}" class="active">
+        Connections
+    </a>
+
 
 </nav>
+
+
 
 
 
@@ -79,21 +96,34 @@ Connections
 
 
 
+
+
+
+<!-- Search -->
+
 <div class="connection-search">
 
-<input 
-type="text"
-id="personSearch"
-placeholder="Search people by name, role, or department..."
-onkeyup="searchPeople()">
+
+    <input 
+        type="text"
+        id="personSearch"
+        placeholder="Search people by name, role, or department..."
+        onkeyup="searchPeople()">
 
 
-<button class="search-btn"
-onclick="searchPeople()">
-Search
-</button>
+    <button class="search-btn"
+            onclick="searchPeople()">
+
+        Search
+
+    </button>
+
 
 </div>
+
+
+
+
 
 
 
@@ -103,6 +133,10 @@ Search
 
 
 
+
+
+
+<!-- Suggested Connections -->
 
 
 <section class="feed-card">
@@ -119,7 +153,12 @@ Expand your network across the organization.
 
 
 
+
+
 <div class="feed-list">
+
+
+
 
 
 
@@ -135,7 +174,9 @@ PN
 
 
 
+
 <div class="connection-details">
+
 
 <h3>
 Priya Nair
@@ -143,7 +184,7 @@ Priya Nair
 
 
 <p class="connection-role">
-IT Support Specialist
+IT Support Specialist • Technology
 </p>
 
 
@@ -160,16 +201,22 @@ Suggested
 
 
 
+
 <div class="connection-actions">
+
 
 <button class="connect-btn">
 Connect
 </button>
 
+
 </div>
 
 
 </div>
+
+
+
 
 
 
@@ -186,6 +233,8 @@ MC
 </div>
 
 
+
+
 <div class="connection-details">
 
 
@@ -195,7 +244,7 @@ Marcus Chen
 
 
 <p class="connection-role">
-Operations Analyst
+Operations Analyst • Operations
 </p>
 
 
@@ -211,16 +260,23 @@ Suggested
 
 
 
+
+
 <div class="connection-actions">
+
 
 <button class="connect-btn">
 Connect
 </button>
 
+
 </div>
 
 
 </div>
+
+
+
 
 
 </div>
@@ -231,6 +287,12 @@ Connect
 
 
 
+
+
+
+
+
+<!-- Your Network -->
 
 
 <section class="feed-card">
@@ -248,7 +310,11 @@ Recent connections and colleagues you engage with most.
 
 
 
+
 <div class="feed-list">
+
+
+
 
 
 
@@ -265,7 +331,9 @@ ST
 
 
 
+
 <div class="connection-details">
+
 
 <h3>
 Sarah Thompson
@@ -273,7 +341,7 @@ Sarah Thompson
 
 
 <p class="connection-role">
-Program Advisor
+Program Advisor 
 </p>
 
 
@@ -289,19 +357,26 @@ Connected
 
 
 
+
+
 <div class="connection-actions">
 
 
 <button class="profile-btn"
 onclick="viewProfile('Sarah Thompson')">
+
 View Profile
+
 </button>
+
 
 
 
 <button class="message-btn"
 onclick="openChat('Sarah Thompson')">
+
 Message
+
 </button>
 
 
@@ -310,7 +385,12 @@ Message
 
 </div>
 
-<!-- David Kumar -->
+
+
+
+
+
+
 
 <div class="feed-item connection-card person-card">
 
@@ -324,7 +404,9 @@ DK
 
 
 
+
 <div class="connection-details">
+
 
 <h3>
 David Kumar
@@ -332,7 +414,7 @@ David Kumar
 
 
 <p class="connection-role">
-Business Analyst
+Business Analyst 
 </p>
 
 
@@ -349,19 +431,25 @@ Connected
 
 
 
+
 <div class="connection-actions">
 
 
 <button class="profile-btn"
 onclick="viewProfile('David Kumar')">
+
 View Profile
+
 </button>
+
 
 
 
 <button class="message-btn"
 onclick="openChat('David Kumar')">
+
 Message
+
 </button>
 
 
@@ -374,9 +462,6 @@ Message
 
 
 
-
-
-<!-- Emma Wilson -->
 
 
 <div class="feed-item connection-card person-card">
@@ -391,6 +476,7 @@ EW
 
 
 
+
 <div class="connection-details">
 
 
@@ -400,7 +486,7 @@ Emma Wilson
 
 
 <p class="connection-role">
-Project Coordinator
+Project Coordinator 
 </p>
 
 
@@ -416,19 +502,26 @@ Connected
 
 
 
+
+
 <div class="connection-actions">
 
 
 <button class="profile-btn"
 onclick="viewProfile('Emma Wilson')">
+
 View Profile
+
 </button>
+
 
 
 
 <button class="message-btn"
 onclick="openChat('Emma Wilson')">
+
 Message
+
 </button>
 
 
@@ -436,6 +529,7 @@ Message
 
 
 </div>
+
 
 
 
@@ -447,7 +541,274 @@ Message
 </section>
 
 
+
+
+
 </div>
+
+
+
+
+
+
+
+<!-- People Directory Search Results -->
+
+
+<section class="feed-card search-results-card">
+
+
+<h2>
+People Directory
+</h2>
+
+
+<p class="card-subtitle">
+Search employees across the organization.
+</p>
+
+
+
+
+
+<div class="feed-list" id="searchResults">
+
+
+
+
+
+
+<!-- Alex Brown -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+AB
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Alex Brown
+</h3>
+
+
+<p class="connection-role">
+Software Developer • IT Department
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Alex Brown')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Alex Brown')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Jessica Lee -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+JL
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Jessica Lee
+</h3>
+
+
+<p class="connection-role">
+HR Specialist • Human Resources
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Jessica Lee')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Jessica Lee')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Michael Brown -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+MB
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Michael Brown
+</h3>
+
+
+<p class="connection-role">
+Senior Project Manager • PMO
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Michael Brown')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Michael Brown')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
 
 
 </main>
@@ -459,7 +820,8 @@ Message
 
 
 
-<!-- Chat Popup -->
+
+<!-- Instagram Style Chat Popup -->
 
 
 <div id="chatModal" class="chat-modal">
@@ -469,10 +831,13 @@ Message
 
 
 
+
+
 <div class="chat-header">
 
 
 <div>
+
 
 <h3 id="chatUserName">
 User
@@ -488,8 +853,11 @@ Online
 
 
 
+
 <button onclick="closeChat()">
+
 ✕
+
 </button>
 
 
@@ -500,9 +868,12 @@ Online
 
 
 
+
 <div class="chat-messages" id="chatMessages">
 
+
 </div>
+
 
 
 
@@ -522,7 +893,9 @@ onkeypress="handleEnter(event)">
 
 
 <button onclick="sendChatMessage()">
+
 Send
+
 </button>
 
 
@@ -541,41 +914,59 @@ Send
 
 
 
+
+
 <script>
 
 
-/* ---------- Search People ---------- */
+
+
+
+/* ===========================
+   SEARCH PEOPLE
+=========================== */
 
 
 function searchPeople(){
 
 
-let input =
+let input = 
 document.getElementById("personSearch")
 .value
 .toLowerCase();
 
 
 
-let people =
+
+let existingPeople =
 document.getElementsByClassName("person-card");
 
 
 
-for(let i = 0; i < people.length; i++){
+let directoryPeople =
+document.getElementsByClassName("searchable-person");
 
 
-let content =
-people[i]
+
+
+
+
+// Search existing connections
+
+for(let i = 0; i < existingPeople.length; i++){
+
+
+let text =
+existingPeople[i]
 .textContent
 .toLowerCase();
 
 
 
-if(content.includes(input)){
+if(text.includes(input) || input === ""){
 
 
-people[i].style.display = "flex";
+existingPeople[i].style.display="flex";
 
 
 }
@@ -583,7 +974,43 @@ people[i].style.display = "flex";
 else{
 
 
-people[i].style.display = "none";
+existingPeople[i].style.display="none";
+
+
+}
+
+
+}
+
+
+
+
+
+
+// Search directory people
+
+for(let i = 0; i < directoryPeople.length; i++){
+
+
+let text =
+directoryPeople[i]
+.textContent
+.toLowerCase();
+
+
+
+if(text.includes(input) && input !== ""){
+
+
+directoryPeople[i].style.display="flex";
+
+
+}
+
+else{
+
+
+directoryPeople[i].style.display="none";
 
 
 }
@@ -601,32 +1028,47 @@ people[i].style.display = "none";
 
 
 
-/* ---------- Profile Navigation ---------- */
+
+/* ===========================
+   PROFILE NAVIGATION
+=========================== */
 
 
 function viewProfile(name){
 
 
-if(name === "Sarah Thompson"){
 
-window.location.href="/profile/sarah";
+let profiles = {
+
+
+"Sarah Thompson":"sarah",
+
+"David Kumar":"david",
+
+"Emma Wilson":"emma",
+
+"Alex Brown":"alex",
+
+"Jessica Lee":"jessica",
+
+"Michael Brown":"michael"
+
+
+};
+
+
+
+
+if(profiles[name]){
+
+
+window.location.href =
+"/profile/" + profiles[name];
+
 
 }
 
 
-else if(name === "David Kumar"){
-
-window.location.href="/profile/david";
-
-}
-
-
-else if(name === "Emma Wilson"){
-
-window.location.href="/profile/emma";
-
-}
-
 
 }
 
@@ -637,7 +1079,11 @@ window.location.href="/profile/emma";
 
 
 
-/* ---------- Chat ---------- */
+
+/* ===========================
+   CHAT SYSTEM
+=========================== */
+
 
 
 function openChat(name){
@@ -656,15 +1102,20 @@ document.getElementById("chatMessages");
 chat.innerHTML = `
 
 <div class="message received">
+
 Hey! Nice connecting with you.
+
 </div>
 
 
 <div class="message received">
+
 How can I help you today?
+
 </div>
 
 `;
+
 
 
 
@@ -674,6 +1125,9 @@ document.getElementById("chatModal")
 
 
 }
+
+
+
 
 
 
@@ -694,8 +1148,9 @@ document.getElementById("chatModal")
 
 
 
-function sendChatMessage(){
 
+
+function sendChatMessage(){
 
 
 let input =
@@ -708,11 +1163,13 @@ input.value.trim();
 
 
 
+
 if(text === ""){
 
 return;
 
 }
+
 
 
 
@@ -732,24 +1189,31 @@ text;
 
 
 
+
 document.getElementById("chatMessages")
 .appendChild(message);
 
 
 
-input.value="";
+
+input.value = "";
 
 
 
-let box =
+
+
+let chatBox =
 document.getElementById("chatMessages");
 
 
-box.scrollTop =
-box.scrollHeight;
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
 
 
 }
+
 
 
 
@@ -762,16 +1226,21 @@ function handleEnter(event){
 
 if(event.key === "Enter"){
 
+
 sendChatMessage();
 
+
 }
 
 
 }
+
+
 
 
 
 </script>
+
 
 
 
