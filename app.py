@@ -236,9 +236,43 @@ def give_recognition():
 def profile():
     return render_template("profile.html")
 
-@app.route("/mentorship")
+@app.route("/mentorship", methods=["GET", "POST"])
 def mentorship():
-    return render_template("mentorship.html")
+
+    if request.method == "POST":
+
+        pronouns = request.form.get("pronouns")
+        location = request.form.get("location")
+        language = request.form.get("language")
+
+        mentorship_goals = request.form.get("mentorship_goals")
+
+        learning_methods = request.form.getlist("learning_methods")
+
+        employee_networks = request.form.getlist("employee_networks")
+
+        meeting_types = request.form.getlist("meeting_types")
+
+        meeting_frequency = request.form.getlist("meeting_frequency")
+
+        meeting_length = request.form.getlist("meeting_length")
+
+        mentorship_duration = request.form.getlist("mentorship_duration")
+
+
+        # TODO:
+        # Save this information into your database here
+
+
+        flash("Mentorship profile saved successfully!", "success")
+
+        return redirect(url_for("mentorship"))
+
+
+    return render_template(
+        "mentorship.html",
+        user_name="Johan"
+    )
 
 @app.route("/connections")
 def connections():

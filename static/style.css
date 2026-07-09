@@ -2005,3 +2005,697 @@ font-weight:600;
 cursor:pointer;
 
 }
+
+
+
+
+
+/* ==============================
+MENTORSHIP PAGE
+============================== */
+
+
+
+.mentorship-hero {
+
+
+background:white;
+
+padding:30px;
+
+border-radius:14px;
+
+margin-bottom:24px;
+
+box-shadow:0 1px 3px rgba(0,0,0,.08);
+
+
+}
+
+
+
+.mentorship-hero h1 {
+
+
+font-size:28px;
+
+color:#1a3f8f;
+
+margin-bottom:10px;
+
+
+}
+
+
+
+.mentorship-hero p {
+
+
+color:#6b7280;
+
+font-size:15px;
+
+line-height:1.6;
+
+
+}
+
+
+
+
+
+
+
+/* Mentorship Form Card */
+
+
+.mentorship-form-card {
+
+
+background:white;
+
+padding:30px;
+
+border-radius:14px;
+
+margin-bottom:24px;
+
+box-shadow:0 1px 3px rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+
+
+/* Form Sections */
+
+
+.form-section {
+
+
+padding-bottom:28px;
+
+margin-bottom:28px;
+
+border-bottom:1px solid #e5e7eb;
+
+
+}
+
+
+
+.form-section:last-child {
+
+
+border-bottom:none;
+
+margin-bottom:0;
+
+
+}
+
+
+
+
+
+.form-section h2 {
+
+
+font-size:20px;
+
+color:#1a3f8f;
+
+margin-bottom:8px;
+
+
+}
+
+
+
+
+
+.card-subtitle {
+
+
+color:#6b7280;
+
+font-size:14px;
+
+line-height:1.5;
+
+margin-bottom:18px;
+
+
+}
+
+
+
+
+
+
+/* Labels */
+
+
+.form-section label {
+
+
+display:block;
+
+font-size:14px;
+
+font-weight:600;
+
+color:#374151;
+
+margin-bottom:8px;
+
+
+}
+
+
+
+
+.optional-text {
+
+
+color:#9ca3af;
+
+font-size:12px;
+
+font-weight:400;
+
+
+}
+
+
+
+.required-star {
+
+
+color:#dc2626;
+
+}
+
+
+
+
+
+/* Inputs */
+
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+
+
+width:100%;
+
+padding:12px 14px;
+
+border-radius:10px;
+
+border:1px solid #d1d5db;
+
+font-family:inherit;
+
+font-size:14px;
+
+margin-bottom:16px;
+
+transition:.2s ease;
+
+
+}
+
+
+
+
+
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+
+
+outline:none;
+
+border-color:#0078a8;
+
+box-shadow:0 0 0 3px rgba(0,120,168,.12);
+
+
+}
+
+
+
+
+
+.form-section textarea {
+
+
+resize:vertical;
+
+min-height:130px;
+
+
+}
+
+
+
+
+
+
+
+.character-hint {
+
+
+color:#6b7280;
+
+font-size:12px;
+
+margin-top:-10px;
+
+margin-bottom:18px;
+
+
+}
+
+
+
+
+
+
+
+/* Checkbox Layout */
+
+
+.checkbox-grid {
+
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:12px;
+
+margin-bottom:20px;
+
+
+}
+
+
+
+
+
+
+.checkbox-card {
+
+
+background:#f8fafc;
+
+border:1px solid #e5e7eb;
+
+padding:14px;
+
+border-radius:10px;
+
+display:flex !important;
+
+align-items:center;
+
+gap:10px;
+
+cursor:pointer;
+
+transition:.2s ease;
+
+
+}
+
+
+
+
+
+
+.checkbox-card:hover {
+
+
+border-color:#0078a8;
+
+transform:translateY(-2px);
+
+
+}
+
+
+
+
+
+.checkbox-card input {
+
+
+width:auto;
+
+margin:0;
+
+
+}
+
+
+
+.checkbox-card span {
+
+
+font-size:14px;
+
+color:#374151;
+
+
+}
+
+
+
+
+
+
+
+/* Employee Network */
+
+
+.employee-network-grid {
+
+
+grid-template-columns:repeat(4,1fr);
+
+
+}
+
+
+
+
+
+
+
+
+/* Meeting Preferences */
+
+
+.preference-group {
+
+
+margin-bottom:30px;
+
+
+}
+
+
+
+.preference-group h3 {
+
+
+font-size:16px;
+
+color:#1a3f8f;
+
+margin-bottom:8px;
+
+
+}
+
+
+
+.small-help-text {
+
+
+color:#6b7280;
+
+font-size:13px;
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+
+
+
+
+/* Buttons */
+
+
+.form-actions {
+
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:12px;
+
+margin-top:20px;
+
+
+}
+
+
+
+
+
+.primary-btn {
+
+
+background:#0078a8;
+
+color:white;
+
+border:none;
+
+padding:12px 22px;
+
+border-radius:8px;
+
+font-size:14px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.2s ease;
+
+
+}
+
+
+
+.primary-btn:hover {
+
+
+background:#005a9e;
+
+transform:translateY(-2px);
+
+
+}
+
+
+
+
+
+.secondary-btn {
+
+
+background:white;
+
+color:#0078a8;
+
+border:1px solid #0078a8;
+
+padding:12px 22px;
+
+border-radius:8px;
+
+font-size:14px;
+
+font-weight:600;
+
+text-decoration:none;
+
+transition:.2s ease;
+
+
+}
+
+
+
+
+.secondary-btn:hover {
+
+
+background:#f0f9ff;
+
+
+}
+
+
+
+
+
+
+
+/* Flash Messages */
+
+
+.alert {
+
+
+padding:14px 18px;
+
+border-radius:10px;
+
+margin-bottom:20px;
+
+font-size:14px;
+
+
+}
+
+
+
+.alert-success {
+
+
+background:#dcfce7;
+
+color:#166534;
+
+border:1px solid #bbf7d0;
+
+
+}
+
+
+
+.alert-danger {
+
+
+background:#fee2e2;
+
+color:#991b1b;
+
+border:1px solid #fecaca;
+
+
+}
+
+
+
+
+
+
+
+/* Mobile Responsive */
+
+
+@media(max-width:1000px){
+
+
+
+.checkbox-grid {
+
+
+grid-template-columns:repeat(2,1fr);
+
+
+}
+
+
+
+.employee-network-grid {
+
+
+grid-template-columns:repeat(2,1fr);
+
+
+}
+
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+
+.mentorship-form-card {
+
+
+padding:20px;
+
+
+}
+
+
+
+.mentorship-hero {
+
+
+padding:22px;
+
+
+}
+
+
+
+.checkbox-grid {
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+.employee-network-grid {
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+.form-actions {
+
+
+flex-direction:column;
+
+
+}
+
+
+
+.primary-btn,
+.secondary-btn {
+
+
+width:100%;
+
+text-align:center;
+
+
+}
+
+
+
+}
