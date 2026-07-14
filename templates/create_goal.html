@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Goal</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<nav class="topbar">
+
+<div class="topbar-brand">
+
+<img src="{{ url_for('static', filename='logo_ops.png') }}"
+class="topbar-logo">
+
+<span>
+Connect
+</span>
+
+</div>
+
+
+<div class="topbar-user">
+
+<span>
+Hi, {{ user_name }}
+</span>
+
+
+</div>
+
+</nav>
+
+
+
+
+<main class="dashboard-container">
+
+
+
+<section class="profile-section-card goal-create-card">
+
+
+<h1>
+Create New Goal
+</h1>
+
+
+<p class="goal-subtitle">
+Create a new goal for your performance plan.
+</p>
+
+
+
+
+<div class="goal-info">
+
+
+<p>
+<strong>Plan:</strong>
+2026/27 Co-op Student
+</p>
+
+
+<p>
+<strong>Manager:</strong>
+Shaz Maqbool
+</p>
+
+
+</div>
+
+
+
+
+
+
+<label>
+Give your goal a short title*
+</label>
+
+
+<input
+type="text"
+id="goalTitle"
+maxlength="50"
+placeholder="Enter your goal title">
+
+
+
+<span class="character-count">
+50 characters remaining
+</span>
+
+
+
+
+
+
+
+<label>
+Choose a type of goal*
+</label>
+
+
+
+
+<div class="goal-options">
+
+
+<label class="goal-option">
+
+
+<input 
+type="radio"
+name="goalType"
+value="Performance Goal">
+
+
+<div>
+
+<h3>
+Performance Goal
+</h3>
+
+
+<p>
+
+Performance goals describe what you are currently working on and what you will deliver.
+
+</p>
+
+
+</div>
+
+
+</label>
+
+
+
+
+
+<label class="goal-option">
+
+
+<input 
+type="radio"
+name="goalType"
+value="Learning Goal">
+
+
+<div>
+
+<h3>
+Learning Goal
+</h3>
+
+
+<p>
+
+Learning goals guide the process of acquiring knowledge, skills, or abilities.
+
+</p>
+
+
+</div>
+
+
+</label>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="goal-actions">
+
+
+<button 
+class="secondary-btn"
+onclick="window.history.back()">
+
+Close
+
+</button>
+
+
+
+<button 
+class="primary-btn"
+onclick="saveGoal()">
+
+Save and Continue
+
+</button>
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+</main>
+
+
+
+
+
+<script>
+
+function saveGoal(){
+
+
+    let title =
+    document.getElementById("goalTitle").value.trim();
+
+
+
+    let type =
+    document.querySelector(
+        'input[name="goalType"]:checked'
+    );
+
+
+
+    if(title === ""){
+
+        alert("Please enter a goal title");
+
+        return;
+
+    }
+
+
+
+    if(!type){
+
+        alert("Please select a goal type");
+
+        return;
+
+    }
+
+
+
+
+    let form =
+    document.createElement("form");
+
+
+    form.method = "POST";
+
+
+    form.action = "{{ url_for('create_goal') }}";
+
+
+
+
+    let titleInput =
+    document.createElement("input");
+
+
+    titleInput.type = "hidden";
+
+
+    titleInput.name = "title";
+
+
+    titleInput.value = title;
+
+
+
+
+    let typeInput =
+    document.createElement("input");
+
+
+    typeInput.type = "hidden";
+
+
+    typeInput.name = "type";
+
+
+    typeInput.value = type.value;
+
+
+
+
+    form.appendChild(titleInput);
+
+
+    form.appendChild(typeInput);
+
+
+
+    document.body.appendChild(form);
+
+
+
+    form.submit();
+
+
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>

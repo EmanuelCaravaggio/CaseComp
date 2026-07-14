@@ -35,7 +35,7 @@ Connect
 <div class="topbar-user">
 
 <span>
-Hi, {{ user_name }}
+Hi, Johan {{ user_name }}
 </span>
 
 
@@ -99,6 +99,12 @@ Connections
 
 
 
+
+
+
+
+
+
 <!-- PROFILE HEADER -->
 
 
@@ -120,7 +126,7 @@ Johan Geosy
 
 
 <p>
-Computer Science Student • IT Department
+Technical IT Assistant • Intern 
 </p>
 
 
@@ -131,10 +137,212 @@ Connect Member
 </span>
 
 
+<!-- ACHIEVEMENTS -->
+
+<div class="trophy-area">
+
+<h3>
+    Achievements
+</h3>
+
+
+<div class="trophy-container">
+
+
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='trophy.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Network Builder
+</strong>
+
+<p>
+Added 5 connections on OPS Connect.
+</p>
+
+</div>
+
 </div>
 
 
+
+
+
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='trophy.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Community Member
+</strong>
+
+<p>
+Gave your first recognition.
+</p>
+
+</div>
+
+</div>
+
+
+
+
+<!--
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='trophies/team_champion.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Team Champion
+</strong>
+
+<p>
+Received 10 recognitions.
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='trophies/mentor_ready.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Mentor Ready
+</strong>
+
+<p>
+Completed your mentorship profile.
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='trophies/goal_setter.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Goal Setter
+</strong>
+
+<p>
+Created your first performance goal.
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="trophy-card">
+
+<img src="{{ url_for('static', filename='static/goal_achiever.png') }}"
+class="trophy-icon">
+
+
+<div>
+
+<strong>
+Goal Achiever
+</strong>
+
+<p>
+Completed a performance goal.
+</p>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+</div>
+
+-->
+
+
 </section>
+
+
+<!-- PERFORMANCE PLAN -->
+
+<section class="profile-section-card locked-performance-card">
+
+    <div class="section-header">
+
+        <h2>
+            ⭐ Performance Plan
+        </h2>
+
+        <span class="locked-badge">
+            Required
+        </span>
+
+    </div>
+
+
+    <p>
+        Manage your goals, progress updates, and development plan.
+    </p>
+
+
+    
+
+
+    <a href="{{ url_for('performance') }}" 
+       class="primary-btn">
+
+        Open Performance Plan
+
+    </a>
+
+
+    
+
+</section>
+
 
 
 
@@ -190,7 +398,7 @@ Delete
 
 
 
-<p>
+<p id="aboutText">
 
 Computer Science student passionate about technology,
 software development, and creating solutions that improve
@@ -449,9 +657,6 @@ Connect - Employee networking and recognition platform.
 <div id="customSections">
 
 </div>
-
-
-
 
 
 
@@ -877,11 +1082,47 @@ Cancel
 </div>
 
 
+<!-- OPS CONNECT AI ASSISTANT -->
 
+<div id="aiButton" class="ai-button">
+    <img src="{{ url_for('static', filename='ai_icon.png') }}" alt="AI Assistant">
+</div>
 
+<div id="aiBox" class="ai-box">
 
+    <div class="ai-header">
+        OPS Connect AI
+        <span onclick="closeAI()">×</span>
+    </div>
 
+    <div id="chatArea" class="chat-area">
 
+        <div class="ai-message">
+            Hi Johan! How can I help today?
+        </div>
+
+    </div>
+
+    <input
+        type="text"
+        id="aiInput"
+        placeholder="Ask OPS Connect AI..."
+        onkeypress="if(event.key==='Enter') askAI()"
+    >
+
+    <button onclick="askAI()">
+        Send
+    </button>
+
+    <br><br>
+
+    <input
+        type="file"
+        id="resumeUpload"
+        accept=".txt,.pdf"
+    >
+
+</div>
 
 
 <script>
@@ -925,18 +1166,12 @@ document.getElementById("editModal")
 }
 
 
-
-
-
 function closeEditModal(){
 
 document.getElementById("editModal")
 .style.display="none";
 
 }
-
-
-
 
 
 function saveEdit(){
@@ -1316,9 +1551,317 @@ element.parentElement.remove();
 
 
 
+
+
+// ==============================
+// AI RESUME SKILL EXTRACTOR
+// ==============================
+
+
+function updateSkillsFromResume(){
+
+
+let file =
+document.getElementById("resumeUpload").files[0];
+
+
+if(!file){
+
+let chat =
+document.getElementById("chatArea");
+
+
+chat.innerHTML += `
+
+<div class="ai-message">
+
+Please upload your resume first so I can extract your skills.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+let reader = new FileReader();
+
+
+
+reader.onload=function(e){
+
+
+let resumeText =
+e.target.result.toLowerCase();
+
+
+
+let skillDatabase=[
+
+"python",
+"java",
+"javascript",
+"c++",
+"sql",
+"flask",
+"docker",
+"git",
+"linux",
+"html",
+"css",
+"react",
+"opencv",
+"machine learning",
+"artificial intelligence",
+"pandas",
+"numpy",
+"power bi",
+"excel"
+
+];
+
+
+
+skillDatabase.forEach(skill=>{
+
+
+if(resumeText.includes(skill)){
+
+
+addAISkill(skill);
+
+
+}
+
+
+});
+
+
+};
+
+
+
+reader.readAsText(file);
+
+
+}
+
+
+
+
+
+function addAISkill(skill){
+
+
+let container =
+document.getElementById("skillContainer");
+
+
+
+let button =
+document.createElement("button");
+
+
+button.className="skill-tag";
+
+
+
+button.innerHTML=
+`
+
+${skill}
+
+<span onclick="removeSkill(this)">
+×
+</span>
+
+`;
+
+
+
+container.appendChild(button);
+
+
+}
+
+
+
+
+
+// ==============================
+// OPS CONNECT AI
+// ==============================
+
+// ==============================
+// OPS CONNECT AI TOGGLE
+// ==============================
+
+const aiButton = document.getElementById("aiButton");
+const aiBox = document.getElementById("aiBox");
+
+
+aiButton.addEventListener("click", function () {
+
+    if (aiBox.style.display === "block") {
+
+        // Close AI
+        aiBox.style.display = "none";
+
+    } else {
+
+        // Open AI
+        aiBox.style.display = "block";
+
+    }
+
+});
+
+// Close AI
+function closeAI() {
+
+    document.getElementById("aiBox").style.display = "none";
+
+}
+
+// AI Chat
+function askAI() {
+
+    let input = document.getElementById("aiInput").value.toLowerCase();
+
+    if (input.trim() === "") return;
+
+    let response = "";
+
+    if (
+        input.includes("about") ||
+        input.includes("profile")
+    ) {
+
+        updateAboutMe();
+
+        response =
+        "I've updated your About Me section.";
+
+    }
+
+    else if (
+        input.includes("achievement")
+    ) {
+
+        response =
+        "You have earned:\n\n🏆 Network Builder\n🏆 Community Member\n🏆 Team Champion\n🏆 Mentor Ready\n🏆 Goal Setter\n🏆 Goal Achiever";
+
+    }
+
+    else if (
+        input.includes("performance")
+    ) {
+
+        response =
+        "Your Performance Plan tracks your goals, development progress, and completed objectives.";
+
+    }
+
+    else if (
+        input.includes("mentor")
+    ) {
+
+        response =
+        "Visit the Mentorship page to connect with mentors or become one yourself.";
+
+    }
+
+
+    else if(
+    input.includes("update my skills") ||
+    input.includes("add skills") ||
+    input.includes("skills from resume") ||
+    input.includes("extract skills")
+){
+
+    updateSkillsFromResume();
+
+
+    response =
+    `
+I analyzed your uploaded resume and updated your Skills section.
+
+I added the skills I found from your experience, projects, and technical background.
+`;
+
+}
+
+
+
+else if(
+    input.includes("skill") ||
+    input.includes("technology")
+){
+
+response =
+`
+Your current skills include:
+
+• Python
+• Java
+• SQL
+• Flask
+• Docker
+
+You can ask me:
+"Update my skills from my resume"
+to automatically add skills.
+`;
+
+}
+
+    else {
+
+        response =
+        "Sorry, I don't know that yet. Try asking about your profile, achievements, mentorship, or performance plan.";
+
+    }
+
+    let chat = document.getElementById("chatArea");
+
+    chat.innerHTML +=
+        `<div class="user-message">${input}</div>`;
+
+    chat.innerHTML +=
+        `<div class="ai-message">${response}</div>`;
+
+    document.getElementById("aiInput").value = "";
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
+
+// Update About Me
+function updateAboutMe() {
+
+    document.getElementById("aboutText").innerHTML = `
+        Computer Science student with experience in software development,
+        IT support, networking, and Python programming.
+        Passionate about creating technology that improves collaboration,
+        solving technical problems, and continuously learning new skills.
+    `;
+
+}
+
+
 </script>
+
 
 
 
 </body>
 </html>
+
+
+
+
+
+
