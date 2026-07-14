@@ -28,7 +28,7 @@
 class="topbar-logo">
 
 <span>
-Connect
+OPS Connect
 </span>
 
 </div>
@@ -41,6 +41,14 @@ Connect
 Hi, Johan
 </span>
 
+
+<button 
+    class="accessibility-btn"
+    onclick="toggleAccessibility()">
+
+    Accessibility
+
+</button>
 
 <a href="{{ url_for('logout') }}" class="logout-link">
 Log out
@@ -79,9 +87,19 @@ Mentorship
 </a>
 
 
+<a href="{{ url_for('performance') }}">
+
+        Performance Plan
+
+    </a>
+
+
+
 <a href="{{ url_for('connections') }}">
 Connections
 </a>
+
+
 
 
 </nav>
@@ -178,12 +196,12 @@ JG
 
 
 <h2>
-{{ user_name }}
+Johan Geosy
 </h2>
 
 
 <p>
-Employee • Connect Member
+Technical IT Assistant • Intern
 </p>
 
 

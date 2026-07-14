@@ -26,7 +26,7 @@
 class="topbar-logo">
 
 <span>
-Connect
+OPS Connect
 </span>
 
 </div>
@@ -37,6 +37,15 @@ Connect
 <span>
 Hi, Johan {{ user_name }}
 </span>
+
+
+<button 
+    class="accessibility-btn"
+    onclick="toggleAccessibility()">
+
+    Accessibility
+
+</button>
 
 
 <a href="{{ url_for('logout') }}"
@@ -76,10 +85,15 @@ Profile
 Mentorship
 </a>
 
+<a href="{{ url_for('performance') }}">
+        Performance Plan
+    </a>
 
 <a href="{{ url_for('connections') }}">
 Connections
 </a>
+
+
 
 
 </nav>

@@ -18,11 +18,11 @@
 
         <div class="topbar-brand">
 
-            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+            <img src="{{ url_for('static', filename='logo_ops.png') }}" 
                  class="topbar-logo"
                  alt="Connect Logo">
 
-            <span>Connect</span>
+            <span> OPS Connect</span>
 
         </div>
 
@@ -32,6 +32,15 @@
             <span>
                 Hi, {{ user_name }}
             </span>
+
+
+            <button 
+            class="accessibility-btn"
+            onclick="toggleAccessibility()">
+
+            Accessibility
+
+            </button>
 
 
             <a href="{{ url_for('logout') }}" class="logout-link">
@@ -60,6 +69,14 @@
         <a href="{{ url_for('mentorship') }}" class="active">
             Mentorship
         </a>
+
+
+        <a href="{{ url_for('performance') }}">
+
+        Performance Plan
+
+        </a>
+
 
 
         <a href="{{ url_for('connections') }}">

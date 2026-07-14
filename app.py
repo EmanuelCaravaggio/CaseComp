@@ -74,7 +74,7 @@ def init_db():
 
     # Seed demo users so recognition feels like a real team (remove later)
     demo_users = [
-        ("Demo User", "demo@ops.on.ca", "password123"),
+        ("Johan Geosy", "demo@ops.on.ca", "password123"),
         ("Priya Nair", "priya.nair@ops.on.ca", "password123"),
         ("Marcus Chen", "marcus.chen@ops.on.ca", "password123"),
         ("Aisha Bello", "aisha.bello@ops.on.ca", "password123"),
@@ -86,6 +86,13 @@ def init_db():
                 "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
                 (name, email, generate_password_hash(pw)),
             )
+    conn.commit()
+
+    # Rename demo user to Johan
+    conn.execute(
+    "UPDATE users SET name = ? WHERE email = ?",
+    ("Johan Geosy", "demo@ops.on.ca")
+)
     conn.commit()
 
     # Seed a couple of sample recognitions so the feed isn't empty on first run

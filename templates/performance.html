@@ -29,14 +29,14 @@
 
 
         <img 
-            src="{{ url_for('static', filename='images/logo.png') }}"
+            src="{{ url_for('static', filename='logo_ops.png') }}"
             class="topbar-logo"
             alt="Connect Logo"
         >
 
 
         <span>
-            Connect
+            OPS Connect
         </span>
 
 
@@ -52,6 +52,15 @@
         <span>
             Hi, {{ user_name }}
         </span>
+
+
+        <button 
+        class="accessibility-btn"
+        onclick="toggleAccessibility()">
+
+         Accessibility
+
+         </button>
 
 
 
@@ -104,6 +113,11 @@
 
 
 
+    <a href="{{ url_for('performance') }}" class="active">
+
+        Performance Plan
+
+    </a>
 
 
     <a href="{{ url_for('connections') }}">
@@ -113,14 +127,6 @@
     </a>
 
 
-
-
-
-    <a href="{{ url_for('performance') }}" class="active">
-
-        Performance Plan
-
-    </a>
 
 
 
@@ -1363,6 +1369,26 @@ function updateCybersecurityGoal(){
 
     },500);
 
+
+
+    addAIMessage(
+`
+I updated your Improve Cybersecurity Knowledge goal with recommended performance plan content.
+
+Recommended learning:
+
+📘 Cybersecurity Fundamentals Course
+
+This course will help you build knowledge in:
+• Cybersecurity principles
+• Threat identification
+• Secure technology practices
+• Risk management
+• Data protection best practices
+
+Completing this course will support your goal development and improve your ability to apply cybersecurity practices in the workplace.
+`
+);
 
 }
 
