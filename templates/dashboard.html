@@ -1,103 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
+
 <body class="dashboard-body">
-    <nav class="topbar">
-        <div class="topbar-brand">
-            <img src="{{ url_for('static', filename='logo_ops.png') }}" alt="Connect logo" class="topbar-logo">
-            <span>Connect</span>
-        </div>
-        <div class="topbar-user">
-            <span>Hi, {{ user_name }}</span>
-            <a href="{{ url_for('logout') }}" class="logout-link">Log out</a>
-        </div>
-    </nav>
 
 
-    <nav class="dashboard-tabs">
-        <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
-        <a href="{{ url_for('profile') }}">Profile</a>
-        <a href="{{ url_for('mentorship') }}">Mentorship</a>
-        <a href="{{ url_for('connections') }}">Connections</a>
-    </nav>
 
-    <main class="dashboard-container">
+<!-- Top Navigation -->
 
-    <main class="dashboard-container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+<nav class="topbar">
 
-        <div class="stats-row">
-            <div class="stat-card">
-                <span class="stat-number">{{ received_count }}</span>
-                <span class="stat-label">Recognitions received</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">{{ given_count }}</span>
-                <span class="stat-label">Recognitions given</span>
-            </div>
-        </div>
 
-        <div class="dashboard-grid">
-            <section class="give-recognition-card">
-                <h2>Give Recognition</h2>
-                <p class="card-subtitle">Call out a colleague who made a difference.</p>
-                <form method="POST" action="{{ url_for('give_recognition') }}">
-                    <label for="to_user_id">Who are you recognizing?</label>
-                    <select id="to_user_id" name="to_user_id" required>
-                        <option value="" disabled selected>Select a colleague</option>
-                        {% for colleague in colleagues %}
-                            <option value="{{ colleague.id }}">{{ colleague.name }}</option>
-                        {% endfor %}
-                    </select>
+<div class="topbar-brand">
 
-                    <label for="category">Category</label>
-                    <select id="category" name="category" required>
-                        <option value="" disabled selected>Select a category</option>
-                        {% for cat in categories %}
-                            <option value="{{ cat }}">{{ cat }}</option>
-                        {% endfor %}
-                    </select>
+<img src="{{ url_for('static', filename='logo_ops.png') }}"
+class="topbar-logo">
 
-                    <label for="message">Your message</label>
-                    <textarea id="message" name="message" rows="4" placeholder="What did they do that stood out?" required></textarea>
+<span>
+OPS Connect
+</span>
 
-                    <button type="submit">Send Recognition</button>
-                </form>
-            </section>
+</div>
 
-            <section class="feed-card">
-                <h2>Recent Recognition</h2>
-                {% if feed %}
-                    <div class="feed-list">
-                        {% for item in feed %}
-                            <div class="feed-item">
-                                <div class="feed-header">
-                                    <span class="feed-names">
-                                        <strong>{{ item.from_name }}</strong> → <strong>{{ item.to_name }}</strong>
-                                    </span>
-                                    <span class="feed-category">{{ item.category }}</span>
-                                </div>
-                                <p class="feed-message">{{ item.message }}</p>
-                                <span class="feed-time">{{ item.created_at }}</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p class="empty-state">No recognitions yet — be the first to send one!</p>
-                {% endif %}
-            </section>
-        </div>
-    </main>
+
+
+<div class="topbar-user">
+
+<span>
+Hi, Johan
+</span>
+
+
+<button 
+    class="accessibility-btn"
+    onclick="toggleAccessibility()">
+
+    Accessibility
+
+</button>
+
+<a href="{{ url_for('logout') }}" class="logout-link">
+Log out
+</a>
+
+
+</div>
+
+
+</nav>
+
+
+
+
+
+
+
+<!-- Navigation -->
+
+
+<nav class="dashboard-tabs">
+
+
+<a href="{{ url_for('dashboard') }}" class="active">
+Dashboard
+</a>
+
+
+<a href="{{ url_for('profile') }}">
+Profile
+</a>
+
+
+<a href="{{ url_for('mentorship') }}">
+Mentorship
+</a>
+
+
+<a href="{{ url_for('performance') }}">
+
+        Performance Plan
+
+    </a>
+
+
+
+<a href="{{ url_for('connections') }}">
+Connections
+</a>
+
+
+
+
+</nav>
+
+
+
+
+
+
+
+
+<main class="dashboard-container">
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+
+
+
+
+<!-- Welcome Banner -->
+
+
+<section class="welcome-card">
+
+
+<div>
+
+
+<h1>
+Welcome back, Johan
+</h1>
+
+
+<p>
+Build connections, recognize colleagues, and grow your network.
+</p>
+
+
+</div>
+
+
+
+<a href="{{ url_for('connections') }}"
+class="dashboard-action-btn">
+
+Find People
+
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Profile Summary -->
+
+
+<section class="profile-summary-card">
+
+
+<div class="profile-avatar">
+
+JG
+
+</div>
+
+
+
+<div>
+
+
+<h2>
+Johan Geosy
+</h2>
+
+
+<p>
+Technical IT Assistant • Intern
+</p>
+
+
+</div>
+
+
+
+<a href="{{ url_for('profile') }}"
+class="profile-link">
+
+View Profile
+
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- Stats -->
+
+
+<div class="stats-row">
+
+
+<div class="stat-card">
+
+<span class="stat-number">
+{{ received_count }}
+</span>
+
+
+<span class="stat-label">
+Recognitions Received
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<span class="stat-number">
+{{ given_count }}
+</span>
+
+
+<span class="stat-label">
+Recognitions Given
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<span class="stat-number">
+12
+</span>
+
+
+<span class="stat-label">
+Connections
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<span class="stat-number">
+3
+</span>
+
+
+<span class="stat-label">
+Mentorships
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Quick Actions -->
+
+
+<section class="quick-actions">
+
+
+<h2>
+Quick Actions
+</h2>
+
+
+
+<div class="action-grid">
+
+
+<a href="{{ url_for('connections') }}"
+class="action-card">
+
+<h3>
+Find People
+</h3>
+
+<p>
+Discover colleagues across the organization.
+</p>
+
+</a>
+
+
+
+
+
+<a href="{{ url_for('mentorship') }}"
+class="action-card">
+
+<h3>
+Mentorship
+</h3>
+
+<p>
+Connect with mentors and mentees.
+</p>
+
+</a>
+
+
+
+
+
+
+<a href="#recognition"
+class="action-card">
+
+<h3>
+Recognize Someone
+</h3>
+
+<p>
+Celebrate a colleague's achievements.
+</p>
+
+</a>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<div class="dashboard-grid">
+
+
+
+
+
+
+
+<!-- Recognition Form -->
+
+
+<section class="give-recognition-card"
+id="recognition">
+
+
+<h2>
+Give Recognition
+</h2>
+
+
+
+<p class="card-subtitle">
+
+Call out a colleague who made a difference.
+
+</p>
+
+
+
+
+
+<form method="POST"
+action="{{ url_for('give_recognition') }}">
+
+
+
+<label>
+Who are you recognizing?
+</label>
+
+
+
+<select name="to_user_id" required>
+
+
+<option disabled selected>
+Select a colleague
+</option>
+
+
+{% for colleague in colleagues %}
+
+<option value="{{ colleague.id }}">
+
+{{ colleague.name }}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+
+
+
+<label>
+Category
+</label>
+
+
+
+<select name="category" required>
+
+
+<option disabled selected>
+Select a category
+</option>
+
+
+{% for cat in categories %}
+
+
+<option>
+
+{{ cat }}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+
+
+
+
+<label>
+Message
+</label>
+
+
+<textarea
+name="message"
+rows="4"
+placeholder="What did they do that stood out?"
+required>
+</textarea>
+
+
+
+
+
+<button>
+Send Recognition
+</button>
+
+
+
+</form>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Feed -->
+
+
+<section class="feed-card">
+
+
+<h2>
+Recent Recognition
+</h2>
+
+
+
+{% if feed %}
+
+
+<div class="feed-list">
+
+
+{% for item in feed %}
+
+
+<div class="feed-item">
+
+
+<div class="feed-header">
+
+
+<span class="feed-names">
+
+
+<strong>
+{{ item.from_name }}
+</strong>
+
+→
+
+<strong>
+{{ item.to_name }}
+</strong>
+
+
+</span>
+
+
+
+<span class="feed-category">
+
+{{ item.category }}
+
+</span>
+
+
+
+</div>
+
+
+
+
+
+<p class="feed-message">
+
+{{ item.message }}
+
+</p>
+
+
+
+
+
+<span class="feed-time">
+
+{{ item.created_at }}
+
+</span>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+{% else %}
+
+
+<p class="empty-state">
+
+No recognitions yet — be the first!
+
+</p>
+
+
+{% endif %}
+
+
+
+
+</section>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</main>
+
+
 </body>
+
 </html>

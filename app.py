@@ -38,11 +38,43 @@ def init_db():
             FOREIGN KEY (to_user_id) REFERENCES users (id)
         )
     """)
+
+
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS goals (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        title TEXT NOT NULL,
+
+        type TEXT NOT NULL,
+
+        status TEXT DEFAULT 'Draft',
+
+        estimated_timeframe TEXT,
+
+        description TEXT,
+
+        organizational_priority TEXT,
+
+        performance_measures TEXT,
+
+        feedback TEXT,
+
+        progress_updates TEXT,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+
+
+
+    
     conn.commit()
 
     # Seed demo users so recognition feels like a real team (remove later)
     demo_users = [
-        ("Demo User", "demo@ops.on.ca", "password123"),
+        ("Johan Geosy", "demo@ops.on.ca", "password123"),
         ("Priya Nair", "priya.nair@ops.on.ca", "password123"),
         ("Marcus Chen", "marcus.chen@ops.on.ca", "password123"),
         ("Aisha Bello", "aisha.bello@ops.on.ca", "password123"),
@@ -54,6 +86,13 @@ def init_db():
                 "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
                 (name, email, generate_password_hash(pw)),
             )
+    conn.commit()
+
+    # Rename demo user to Johan
+    conn.execute(
+    "UPDATE users SET name = ? WHERE email = ?",
+    ("Johan Geosy", "demo@ops.on.ca")
+)
     conn.commit()
 
     # Seed a couple of sample recognitions so the feed isn't empty on first run
@@ -236,13 +275,304 @@ def give_recognition():
 def profile():
     return render_template("profile.html")
 
-@app.route("/mentorship")
+@app.route("/mentorship", methods=["GET", "POST"])
 def mentorship():
-    return render_template("mentorship.html")
+
+    if request.method == "POST":
+
+        pronouns = request.form.get("pronouns")
+        location = request.form.get("location")
+        language = request.form.get("language")
+
+        mentorship_goals = request.form.get("mentorship_goals")
+
+        learning_methods = request.form.getlist("learning_methods")
+
+        employee_networks = request.form.getlist("employee_networks")
+
+        meeting_types = request.form.getlist("meeting_types")
+
+        meeting_frequency = request.form.getlist("meeting_frequency")
+
+        meeting_length = request.form.getlist("meeting_length")
+
+        mentorship_duration = request.form.getlist("mentorship_duration")
+
+
+        # TODO:
+        # Save this information into your database here
+
+
+        flash("Mentorship profile saved successfully!", "success")
+
+        return redirect(url_for("mentorship"))
+
+
+    return render_template(
+        "mentorship.html",
+        user_name="Johan"
+    )
 
 @app.route("/connections")
 def connections():
     return render_template("connections.html")
+
+
+
+
+@app.route("/performance")
+def performance():
+
+
+    user_name = session.get("user_name", "Johan Geosy")
+
+    conn = get_db()
+
+
+    goals = conn.execute(
+        "SELECT * FROM goals ORDER BY created_at DESC"
+    ).fetchall()
+
+
+    selected_goal = None
+
+
+    goal_id = request.args.get("goal_id")
+
+
+    if goal_id:
+
+        selected_goal = conn.execute(
+            "SELECT * FROM goals WHERE id = ?",
+            (goal_id,)
+        ).fetchone()
+
+
+
+    conn.close()
+
+
+    return render_template(
+        "performance.html",
+        user_name=user_name,
+        goals=goals,
+        selected_goal=selected_goal
+    )
+
+@app.route("/create_goal", methods=["GET", "POST"])
+def create_goal():
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+
+        goal_type = request.form["type"]
+
+
+        conn = get_db()
+
+
+        conn.execute("""
+            INSERT INTO goals
+            (
+                title,
+                type,
+                status,
+                estimated_timeframe,
+                description,
+                organizational_priority,
+                performance_measures,
+                feedback,
+                progress_updates
+            )
+
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+        """,
+        (
+            title,
+            goal_type.lower().replace(" goal", ""),
+            "Draft",
+            "May 2026 to Aug 2026",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ))
+
+
+        conn.commit()
+
+        conn.close()
+
+
+
+        flash(
+            "Goal created successfully!",
+            "success"
+        )
+
+
+        return redirect(
+            url_for("performance")
+        )
+
+
+
+    return render_template(
+        "create_goal.html",
+        user_name=session.get("user_name", "Johan Geosy")
+    )
+
+
+
+
+
+
+
+
+
+@app.route("/update_goal/<int:goal_id>", methods=["POST"])
+def update_goal(goal_id):
+
+
+    conn = get_db()
+
+
+
+    conn.execute("""
+        UPDATE goals
+
+        SET
+
+            title = ?,
+            estimated_timeframe = ?,
+            description = ?,
+            organizational_priority = ?,
+            performance_measures = ?,
+            feedback = ?,
+            progress_updates = ?
+
+        WHERE id = ?
+
+    """,
+    (
+        request.form["goal_title"],
+
+        f"{request.form.get('start_date')} to {request.form.get('end_date')}",
+
+        request.form["description"],
+
+        request.form["organizational_priority"],
+
+        request.form["performance_measures"],
+
+        request.form["feedback"],
+
+        request.form["progress_updates"],
+
+        goal_id
+    ))
+
+
+
+    conn.commit()
+
+    conn.close()
+
+
+
+    flash(
+        "Goal updated successfully!",
+        "success"
+    )
+
+
+
+    return redirect(
+        url_for(
+            "performance",
+            goal_id=goal_id
+        )
+    )
+
+
+
+@app.route("/delete_goal/<int:goal_id>", methods=["POST"])
+def delete_goal(goal_id):
+
+
+    conn = get_db()
+
+
+
+    conn.execute(
+        """
+        DELETE FROM goals
+        WHERE id = ?
+        """,
+        (goal_id,)
+    )
+
+
+
+    conn.commit()
+
+    conn.close()
+
+
+
+    flash(
+        "Goal deleted successfully!",
+        "success"
+    )
+
+
+
+    return redirect(
+        url_for("performance")
+    )
+
+@app.route("/profile/<person>")
+def person_profile(person):
+
+    profiles = {
+
+        "sarah": {
+            "name": "Sarah Thompson",
+            "role": "Program Advisor",
+            "department": "Student Services",
+            "bio": "Helping teams improve programs and employee engagement."
+        },
+
+
+        "david": {
+            "name": "David Kumar",
+            "role": "Business Analyst",
+            "department": "Operations",
+            "bio": "Focused on analytics, reporting, and process improvement."
+        },
+
+
+        "emma": {
+            "name": "Emma Wilson",
+            "role": "Project Coordinator",
+            "department": "Projects",
+            "bio": "Coordinates projects and supports cross-functional teams."
+        }
+
+    }
+
+
+    profile = profiles.get(person)
+
+
+    return render_template(
+        "person_profile.html",
+        profile=profile
+    )
+
 
 
 if __name__ == "__main__":

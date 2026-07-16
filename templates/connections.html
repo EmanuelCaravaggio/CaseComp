@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connections</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+
+<!-- Top Navigation -->
+
+<nav class="topbar">
+
+
+    <div class="topbar-brand">
+
+        <img src="{{ url_for('static', filename='logo_ops.png') }}"
+             alt="Connect logo"
+             class="topbar-logo">
+
+        <span>
+        OPS Connect
+        </span>
+
+    </div>
+
+
+
+
+    <div class="topbar-user">
+
+        <span>
+            Hi, Johan 
+        </span>
+
+         <button 
+        class="accessibility-btn"
+        onclick="toggleAccessibility()">
+
+        Accessibility
+
+        </button>
+
+
+        <a href="{{ url_for('logout') }}" class="logout-link">
+            Log out
+        </a>
+
+    </div>
+
+
+</nav>
+
+
+
+
+
+
+
+
+<!-- Accessibility Menu -->
+
+<div id="accessibilityPanel" class="accessibility-panel">
+
+
+    <h3>
+        Accessibility Settings
+    </h3>
+
+
+    <button onclick="increaseFont()">
+        Increase Font
+    </button>
+
+
+
+    <button onclick="decreaseFont()">
+        Decrease Font
+    </button>
+
+
+
+    <button onclick="resetFont()">
+        Reset Font
+    </button>
+
+
+
+    <button onclick="readPage()">
+        Screen Reader
+    </button>
+
+
+
+    <button onclick="stopReading()">
+        Stop Reading
+    </button>
+
+
+</div>
+
+
+
+
+
+
+<!-- Dashboard Tabs -->
+
+
+<nav class="dashboard-tabs">
+
+
+    <a href="{{ url_for('dashboard') }}">
+        Dashboard
+    </a>
+
+
+    <a href="{{ url_for('profile') }}">
+        Profile
+    </a>
+
+
+    <a href="{{ url_for('mentorship') }}">
+        Mentorship
+    </a>
+
+
+    <a href="{{ url_for('performance') }}">
+
+        Performance Plan
+
+    </a>
+
+    <a href="{{ url_for('connections') }}" class="active">
+        Connections
+    </a>
+
+
+</nav>
+
+
+
+
+
+
+
+<main class="dashboard-container">
+
+
+
+
+
+
+<!-- Search -->
+
+<div class="connection-search">
+
+
+    <input 
+        type="text"
+        id="personSearch"
+        placeholder="Search people by name, role, or department..."
+        onkeyup="searchPeople()">
+
+
+    <button class="search-btn"
+            onclick="searchPeople()">
+
+        Search
+
+    </button>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="dashboard-grid">
+
+
+
+
+
+
+<!-- Suggested Connections -->
+
+
+<section class="feed-card">
+
+
+<h2>
+Suggested Connections
+</h2>
+
+
+<p class="card-subtitle">
+Expand your network across the organization.
+</p>
+
+
+
+
+
+<div class="feed-list">
+
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+PN
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Ryan D'Costa
+</h3>
+
+
+<p class="connection-role">
+IT Assistant
+</p>
+
+
+
+
+
+<span class="connection-status">
+Suggested
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="connect-btn">
+Connect
+</button>
+
+<button class="profile-btn"
+onclick="viewProfile('Ryan')">
+
+View Profile
+
+</button>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+SM
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Sebastisan Marchewka
+</h3>
+
+
+<p class="connection-role">
+IT Assistant
+</p>
+
+
+<span class="connection-status">
+Suggested
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="connect-btn">
+Connect
+</button>
+
+<button class="profile-btn"
+onclick="viewProfile('Ryan')">
+
+View Profile
+
+</button>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Your Network -->
+
+
+<section class="feed-card">
+
+
+<h2>
+Your Network
+</h2>
+
+
+<p class="card-subtitle">
+Recent connections and colleagues you engage with most.
+</p>
+
+
+
+
+
+<div class="feed-list">
+
+
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+ST
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Sarah Thompson
+</h3>
+
+
+<p class="connection-role">
+Program Advisor 
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Sarah Thompson')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Sarah Thompson')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+DK
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+David Kumar
+</h3>
+
+
+<p class="connection-role">
+Business Analyst 
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('David Kumar')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('David Kumar')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="feed-item connection-card person-card">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+EW
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Emma Wilson
+</h3>
+
+
+<p class="connection-role">
+Project Coordinator 
+</p>
+
+
+<span class="connection-status">
+Connected
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Emma Wilson')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Emma Wilson')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- People Directory Search Results -->
+
+
+<section class="feed-card search-results-card">
+
+
+<h2>
+People Directory
+</h2>
+
+
+<p class="card-subtitle">
+Search employees across the organization.
+</p>
+
+
+
+
+
+<div class="feed-list" id="searchResults">
+
+
+
+
+
+
+<!-- Alex Brown -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+AB
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Alex Brown
+</h3>
+
+
+<p class="connection-role">
+Software Developer • IT Department
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Alex Brown')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Alex Brown')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!--  Emanuel Caravaggio -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+EC
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Emanuel Caravaggio
+</h3>
+
+
+<p class="connection-role">
+Technical IT Assistant • Intern
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="connection-actions">
+
+
+<button class="connect-btn"
+onclick="connectPerson('Emanuel Caravaggio')">
+
+Connect
+
+</button>
+
+
+
+<button class="profile-btn"
+onclick="viewProfile('Emanuel Caravaggio')">
+
+View Profile
+
+</button>
+
+</div>
+
+
+
+
+
+<!-- Michael Brown -->
+
+
+<div class="feed-item connection-card searchable-person">
+
+
+<div class="connection-info">
+
+
+<div class="connection-avatar">
+MB
+</div>
+
+
+
+
+<div class="connection-details">
+
+
+<h3>
+Michael Brown
+</h3>
+
+
+<p class="connection-role">
+Senior Project Manager • PMO
+</p>
+
+
+<span class="connection-status">
+Available
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="connection-actions">
+
+
+<button class="profile-btn"
+onclick="viewProfile('Michael Brown')">
+
+View Profile
+
+</button>
+
+
+
+
+<button class="message-btn"
+onclick="openChat('Michael Brown')">
+
+Message
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+<!-- Instagram Style Chat Popup -->
+
+
+<div id="chatModal" class="chat-modal">
+
+
+<div class="chat-window">
+
+
+
+
+
+<div class="chat-header">
+
+
+<div>
+
+
+<h3 id="chatUserName">
+User
+</h3>
+
+
+<span>
+Online
+</span>
+
+
+</div>
+
+
+
+
+<button onclick="closeChat()">
+
+✕
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="chat-messages" id="chatMessages">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="chat-input">
+
+
+<input 
+type="text"
+id="chatText"
+placeholder="Message..."
+onkeypress="handleEnter(event)">
+
+
+
+<button onclick="sendChatMessage()">
+
+Send
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+// =============================
+// ACCESSIBILITY FEATURES
+// =============================
+
+
+let fontSize = 16;
+
+
+
+function toggleAccessibility(){
+
+
+    let panel =
+    document.getElementById("accessibilityPanel");
+
+
+
+    if(panel.style.display === "block"){
+
+        panel.style.display="none";
+
+    }
+
+    else{
+
+        panel.style.display="block";
+
+    }
+
+
+}
+
+
+
+
+
+function increaseFont(){
+
+
+    fontSize += 2;
+
+
+    document.body.style.fontSize =
+    fontSize + "px";
+
+
+}
+
+
+
+
+function decreaseFont(){
+
+
+    if(fontSize > 10){
+
+        fontSize -= 2;
+
+    }
+
+
+    document.body.style.fontSize =
+    fontSize + "px";
+
+
+}
+
+
+
+
+
+function resetFont(){
+
+
+    fontSize = 16;
+
+
+    document.body.style.fontSize =
+    "16px";
+
+
+}
+
+
+
+
+
+function readPage(){
+
+
+    window.speechSynthesis.cancel();
+
+
+    let text =
+    document.body.innerText;
+
+
+
+    let speech =
+    new SpeechSynthesisUtterance(text);
+
+
+
+    speech.rate = 1;
+
+
+    speech.pitch = 1;
+
+
+    window.speechSynthesis.speak(
+        speech
+    );
+
+
+}
+
+
+
+
+
+function stopReading(){
+
+
+    window.speechSynthesis.cancel();
+
+
+}
+
+
+
+
+
+/* ===========================
+   SEARCH PEOPLE
+=========================== */
+
+
+function searchPeople(){
+
+
+let input = 
+document.getElementById("personSearch")
+.value
+.toLowerCase();
+
+
+
+
+let existingPeople =
+document.getElementsByClassName("person-card");
+
+
+
+let directoryPeople =
+document.getElementsByClassName("searchable-person");
+
+
+
+
+
+
+// Search existing connections
+
+for(let i = 0; i < existingPeople.length; i++){
+
+
+let text =
+existingPeople[i]
+.textContent
+.toLowerCase();
+
+
+
+if(text.includes(input) || input === ""){
+
+
+existingPeople[i].style.display="flex";
+
+
+}
+
+else{
+
+
+existingPeople[i].style.display="none";
+
+
+}
+
+
+}
+
+
+
+
+
+
+// Search directory people
+
+for(let i = 0; i < directoryPeople.length; i++){
+
+
+let text =
+directoryPeople[i]
+.textContent
+.toLowerCase();
+
+
+
+if(text.includes(input) && input !== ""){
+
+
+directoryPeople[i].style.display="flex";
+
+
+}
+
+else{
+
+
+directoryPeople[i].style.display="none";
+
+
+}
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ===========================
+   PROFILE NAVIGATION
+=========================== */
+
+
+function viewProfile(name){
+
+
+
+let profiles = {
+
+
+"Sarah Thompson":"sarah",
+
+"David Kumar":"david",
+
+"Emma Wilson":"emma",
+
+"Alex Brown":"alex",
+
+"Jessica Lee":"jessica",
+
+"Michael Brown":"michael"
+
+
+};
+
+
+
+
+if(profiles[name]){
+
+
+window.location.href =
+"/profile/" + profiles[name];
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ===========================
+   CHAT SYSTEM
+=========================== */
+
+
+
+function openChat(name){
+
+
+document.getElementById("chatUserName")
+.textContent = name;
+
+
+
+let chat =
+document.getElementById("chatMessages");
+
+
+
+chat.innerHTML = `
+
+<div class="message received">
+
+Hey! Nice connecting with you.
+
+</div>
+
+
+<div class="message received">
+
+How can I help you today?
+
+</div>
+
+`;
+
+
+
+
+document.getElementById("chatModal")
+.style.display="flex";
+
+
+
+}
+
+
+
+
+
+
+
+
+function closeChat(){
+
+
+document.getElementById("chatModal")
+.style.display="none";
+
+
+}
+
+
+
+
+
+
+
+
+
+function sendChatMessage(){
+
+
+let input =
+document.getElementById("chatText");
+
+
+
+let text =
+input.value.trim();
+
+
+
+
+if(text === ""){
+
+return;
+
+}
+
+
+
+
+
+let message =
+document.createElement("div");
+
+
+
+message.className =
+"message sent";
+
+
+
+message.textContent =
+text;
+
+
+
+
+document.getElementById("chatMessages")
+.appendChild(message);
+
+
+
+
+input.value = "";
+
+
+
+
+
+let chatBox =
+document.getElementById("chatMessages");
+
+
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
+
+
+}
+
+
+
+
+
+
+
+
+function handleEnter(event){
+
+
+if(event.key === "Enter"){
+
+
+sendChatMessage();
+
+
+}
+
+
+}
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

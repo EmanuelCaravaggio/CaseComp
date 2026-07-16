@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Performance Plan</title>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+
+<body class="dashboard-body">
+
+
+
+<!-- Top Navigation -->
+
+<nav class="topbar">
+
+
+    <div class="topbar-brand">
+
+
+        <img 
+            src="{{ url_for('static', filename='logo_ops.png') }}"
+            class="topbar-logo"
+            alt="Connect Logo"
+        >
+
+
+        <span>
+            OPS Connect
+        </span>
+
+
+    </div>
+
+
+
+
+
+    <div class="topbar-user">
+
+
+        <span>
+            Hi, {{ user_name }}
+        </span>
+
+
+        <button 
+        class="accessibility-btn"
+        onclick="toggleAccessibility()">
+
+         Accessibility
+
+         </button>
+
+
+
+        <a href="{{ url_for('logout') }}" class="logout-link">
+
+            Log out
+
+        </a>
+
+
+    </div>
+
+
+</nav>
+
+
+
+
+
+<!-- Navigation -->
+
+<nav class="dashboard-tabs">
+
+
+    <a href="{{ url_for('dashboard') }}">
+
+        Dashboard
+
+    </a>
+
+
+
+
+
+    <a href="{{ url_for('profile') }}">
+
+        Profile
+
+    </a>
+
+
+
+
+
+    <a href="{{ url_for('mentorship') }}">
+
+        Mentorship
+
+    </a>
+
+
+
+    <a href="{{ url_for('performance') }}" class="active">
+
+        Performance Plan
+
+    </a>
+
+
+    <a href="{{ url_for('connections') }}">
+
+        Connections
+
+    </a>
+
+
+
+
+
+</nav>
+
+
+
+
+
+
+
+<main class="dashboard-container">
+
+
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+
+            <div class="alert alert-{{ category }}">
+
+                {{ message }}
+
+            </div>
+
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+
+
+
+
+
+
+<!-- Page Header -->
+
+
+<section class="performance-header-card">
+
+
+
+    <div>
+
+
+        <p class="eyebrow-text">
+
+            Reporting period:
+
+        </p>
+
+
+
+        <h1>
+
+            2026/27 Performance Plan
+
+        </h1>
+
+
+
+        <p class="performance-subtitle">
+
+            Co-op Student • Public &amp; Bus. Service Delivery
+
+        </p>
+
+
+    </div>
+
+
+
+
+
+    <div class="performance-header-actions">
+
+
+
+        <button 
+            class="secondary-btn"
+            type="button"
+        >
+
+            Download
+
+        </button>
+
+
+
+
+        <button 
+            class="primary-btn"
+            type="button"
+        >
+
+            Send for review
+
+        </button>
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Employee Plan Summary -->
+
+
+<section class="plan-summary-card">
+
+
+
+    <div class="plan-summary-main">
+
+
+
+        <div class="profile-avatar">
+
+            {{ user_name[:2].upper() }}
+
+        </div>
+
+
+
+
+        <div>
+
+
+            <h2>
+
+                Co-op Student
+
+            </h2>
+
+
+
+            <p>
+
+                Public &amp; Bus. Service Delivery
+
+            </p>
+
+
+
+
+            <p class="muted-text">
+
+                May 2026 to Aug 2026
+
+            </p>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="plan-details-grid">
+
+
+
+        <div>
+
+            <span class="detail-label">
+
+                Position
+
+            </span>
+
+
+            <strong>
+
+                Co-op Student
+
+            </strong>
+
+
+        </div>
+
+
+
+
+
+        <div>
+
+
+            <span class="detail-label">
+
+                Bargaining group
+
+            </span>
+
+
+            <strong>
+
+                OPSEU
+
+            </strong>
+
+
+        </div>
+
+
+
+
+
+        <div>
+
+
+            <span class="detail-label">
+
+                Manager
+
+            </span>
+
+
+            <strong>
+
+                Shaz Maqbool
+
+            </strong>
+
+
+        </div>
+
+
+
+
+
+        <div>
+
+
+            <span class="detail-label">
+
+                Status
+
+            </span>
+
+
+            <strong>
+
+                Draft
+
+            </strong>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</section>
+
+
+<!-- No Goals State -->
+
+{% if not goals or goals|length == 0 %}
+
+
+<section class="empty-performance-card">
+
+
+    <div class="empty-icon">
+
+        +
+
+    </div>
+
+
+
+    <h2>
+
+        No goals created yet
+
+    </h2>
+
+
+
+    <p>
+
+        Start your performance plan by creating your first performance or learning goal.
+        Your goals help define what you want to accomplish during the reporting period.
+
+    </p>
+
+
+
+
+    <div class="empty-actions">
+
+
+        <a 
+            href="{{ url_for('create_goal') }}"
+            class="primary-btn"
+        >
+
+            Create goal
+
+        </a>
+
+
+
+
+
+        <a 
+            href="#"
+            class="secondary-btn"
+        >
+
+            Visit planning advice
+
+        </a>
+
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+{% else %}
+
+
+
+
+<!-- Main Layout -->
+
+<div class="performance-plan-layout">
+
+
+
+
+
+<!-- Goal Summary Sidebar -->
+
+
+<aside class="goal-summary-card">
+
+
+
+    <div class="goal-summary-header">
+
+
+        <div>
+
+
+            <h2>
+
+                Goal summary
+
+            </h2>
+
+
+
+            <p>
+
+                After you select the goal with Enter key, you can use TAB key to navigate to the goal detail.
+
+            </p>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="goal-actions-row">
+
+
+
+        <button 
+            class="secondary-btn small-btn"
+            type="button"
+        >
+
+            Sort/Filter
+
+        </button>
+
+
+
+
+
+        <a 
+            href="{{ url_for('create_goal') }}"
+            class="primary-btn small-btn"
+        >
+
+            Create goal
+
+        </a>
+
+
+
+
+
+        <button 
+            class="secondary-btn small-btn"
+            type="button"
+        >
+
+            Copy goal
+
+        </button>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="goal-list-section">
+
+
+
+        <h3>
+
+            Performance goals
+
+        </h3>
+
+
+
+
+        <div class="goal-list">
+
+
+
+        {% for goal in goals if goal.type == "performance" %}
+
+
+
+            <a 
+                href="{{ url_for('performance', goal_id=goal.id) }}"
+                class="goal-list-item {% if selected_goal and selected_goal.id == goal.id %}active{% endif %}"
+            >
+
+
+                <span>
+
+                    {{ goal.title }}
+
+                </span>
+
+
+
+                <small>
+
+                    {{ goal.status }}
+
+                </small>
+
+
+
+            </a>
+
+
+
+        {% else %}
+
+
+
+            <p class="empty-mini-text">
+
+                Select “Create goal” to add a performance goal.
+
+            </p>
+
+
+
+        {% endfor %}
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="goal-list-section">
+
+
+
+        <h3>
+
+            Learning goals
+
+        </h3>
+
+
+
+
+        <div class="goal-list">
+
+
+
+        {% for goal in goals if goal.type == "learning" %}
+
+
+
+            <a 
+                href="{{ url_for('performance', goal_id=goal.id) }}"
+                class="goal-list-item {% if selected_goal and selected_goal.id == goal.id %}active{% endif %}"
+            >
+
+
+                <span>
+
+                    {{ goal.title }}
+
+                </span>
+
+
+
+                <small>
+
+                    {{ goal.status }}
+
+                </small>
+
+
+
+            </a>
+
+
+
+        {% else %}
+
+
+
+            <p class="empty-mini-text">
+
+                Select “Create goal” to add a learning goal.
+
+            </p>
+
+
+
+        {% endfor %}
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="planning-help-box">
+
+
+        <p>
+
+            Visit the performance planning webpage for advice about updating your plan.
+
+        </p>
+
+
+    </div>
+
+
+
+</aside>
+
+
+
+<!-- Goal Details -->
+
+
+<section class="goal-details-card">
+
+
+
+{% if selected_goal %}
+
+
+
+
+<div class="goal-details-header">
+
+
+    <div>
+
+
+        <p class="eyebrow-text">
+
+            Goal details
+
+        </p>
+
+
+
+        <h2>
+
+            {{ selected_goal.type|capitalize }} goal
+
+        </h2>
+
+
+    </div>
+
+
+
+
+    <span class="status-pill">
+
+        {{ selected_goal.status }}
+
+    </span>
+
+
+
+</div>
+
+
+
+
+
+
+
+<form 
+    method="POST"
+    action="{{ url_for('update_goal', goal_id=selected_goal.id) }}"
+>
+
+
+
+
+<label for="goal_title">
+
+    Title
+
+    <span class="required-star">
+
+        *
+
+    </span>
+
+</label>
+
+
+
+
+<input
+
+    type="text"
+
+    id="goal_title"
+
+    name="goal_title"
+
+    maxlength="75"
+
+    value="{{ selected_goal.title }}"
+
+    required
+
+>
+
+
+
+
+<div class="goal-options-card">
+
+    <h3>
+        Goal options
+    </h3>
+
+
+    <div class="goal-option-buttons">
+
+
+        <button 
+            type="button"
+            class="secondary-btn small-btn"
+        >
+            Share with manager
+        </button>
+
+
+
+        <button 
+            type="button"
+            class="secondary-btn small-btn"
+        >
+            Ask for feedback
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+<label for="estimated_timeframe">
+
+    Estimated timeframe
+
+</label>
+
+
+<div class="date-range-container">
+
+
+    <div class="date-field">
+
+        <label for="start_date">
+            Start date
+        </label>
+
+        <input
+            type="date"
+            id="start_date"
+            name="start_date"
+        >
+
+    </div>
+
+
+
+    <div class="date-field">
+
+        <label for="end_date">
+            End date
+        </label>
+
+        <input
+            type="date"
+            id="end_date"
+            name="end_date"
+        >
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<label for="description">
+
+    Description
+
+    <span class="required-star">
+
+        *
+
+    </span>
+
+</label>
+
+
+
+
+
+<textarea
+
+    id="description"
+
+    name="description"
+
+    rows="5"
+
+    required
+
+>{{ selected_goal.description }}</textarea>
+
+
+
+
+
+
+<label for="organizational_priority">
+
+    Organizational priority
+
+    <span class="optional-text">
+
+        (optional)
+
+    </span>
+
+</label>
+
+
+
+
+
+<textarea
+
+    id="organizational_priority"
+
+    name="organizational_priority"
+
+    rows="4"
+
+>{{ selected_goal.organizational_priority }}</textarea>
+
+
+
+
+
+
+<label for="performance_measures">
+
+    Performance measures
+
+    <span class="required-star">
+
+        *
+
+    </span>
+
+</label>
+
+
+
+
+
+<textarea
+
+    id="performance_measures"
+
+    name="performance_measures"
+
+    rows="5"
+
+    required
+
+>{{ selected_goal.performance_measures }}</textarea>
+
+
+
+
+
+<p class="small-help-text">
+
+Adding one performance measure is required to share with your manager or send for review.
+
+</p>
+
+
+
+
+
+<label for="feedback">
+
+    Feedback
+
+    <span class="optional-text">
+
+        (optional)
+
+    </span>
+
+</label>
+
+
+
+
+
+<textarea
+
+    id="feedback"
+
+    name="feedback"
+
+    rows="4"
+
+>{{ selected_goal.feedback }}</textarea>
+
+
+
+
+
+
+
+<label for="progress_updates">
+
+    Progress updates and comments
+
+    <span class="optional-text">
+
+        (optional)
+
+    </span>
+
+</label>
+
+
+
+
+
+<textarea
+
+    id="progress_updates"
+
+    name="progress_updates"
+
+    rows="5"
+
+>{{ selected_goal.progress_updates }}</textarea>
+
+
+
+
+
+
+
+<div class="form-actions">
+
+
+    <button
+    type="submit"
+    class="danger-btn small-btn"
+    formaction="{{ url_for('delete_goal', goal_id=selected_goal.id) }}"
+    formmethod="POST"
+    formnovalidate
+    onclick="event.stopPropagation(); return confirm('Are you sure you want to delete this goal?');"
+>
+Delete goal
+</button>
+
+
+    <button 
+        type="button"
+        class="secondary-btn"
+    >
+        Cancel
+    </button>
+
+
+
+
+    <button 
+        type="submit"
+        class="primary-btn"
+    >
+        Save goal
+    </button>
+
+
+</div>
+
+
+
+
+{% else %}
+
+
+
+
+
+<div class="empty-performance-card inner-empty">
+
+
+<h2>
+
+Select a goal
+
+</h2>
+
+
+
+<p>
+
+Choose a goal from the summary list to view or edit the goal details.
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+{% endif %}
+
+
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endif %}
+
+
+
+
+
+</main>
+
+
+
+</body>
+
+
+<!-- OPS CONNECT AI ASSISTANT -->
+
+<div id="aiButton" class="ai-button">
+    <img src="{{ url_for('static', filename='ai_icon.png') }}" alt="AI Assistant">
+</div>
+
+
+<div id="aiBox" class="ai-box">
+
+
+    <div class="ai-header">
+
+        OPS Connect AI
+
+        <span onclick="closeAI()">×</span>
+
+    </div>
+
+
+
+    <div id="chatArea" class="chat-area">
+
+
+        <div class="ai-message">
+
+            Hi Johan! I can help create your performance goal.
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <input
+        type="text"
+        id="aiInput"
+        placeholder="Ask OPS Connect AI..."
+        onkeypress="if(event.key==='Enter') askAI()"
+    >
+
+
+
+    <button onclick="askAI()">
+
+        Send
+
+    </button>
+
+
+</div>
+
+
+
+<script>
+
+
+
+// ==============================
+// OPS CONNECT AI PERFORMANCE PLAN
+// ==============================
+
+
+const aiButton = document.getElementById("aiButton");
+
+const aiBox = document.getElementById("aiBox");
+
+
+
+aiButton.addEventListener("click", function(){
+
+
+    if(aiBox.style.display === "block"){
+
+        aiBox.style.display="none";
+
+    }
+
+    else{
+
+        aiBox.style.display="block";
+
+    }
+
+
+});
+
+
+
+
+
+function closeAI(){
+
+    document.getElementById("aiBox").style.display="none";
+
+}
+
+
+function updateCybersecurityGoal(){
+
+    let goalTitle = "Improve Cybersecurity Knowledge";
+
+    let goalCards = document.querySelectorAll(".goal-list-item");
+
+
+    for(let goal of goalCards){
+
+        if(goal.innerText.includes(goalTitle)){
+
+
+            // Remember AI request before leaving page
+            sessionStorage.setItem(
+                "fillCybersecurityGoal",
+                "true"
+            );
+
+
+            window.location.href = goal.href;
+
+
+            return;
+
+        }
+
+    }
+
+
+    addAIMessage(
+        "I could not find the Improve Cybersecurity Knowledge goal."
+    );
+
+
+
+
+
+    setTimeout(function(){
+
+
+        document.getElementById("description").value =
+        "Develop a stronger understanding of cybersecurity principles, threat prevention strategies, and secure technology practices. Apply this knowledge when supporting workplace systems and digital services.";
+
+
+
+        document.getElementById("organizational_priority").value =
+        "Improve cybersecurity awareness and contribute to protecting organizational information assets through secure practices.";
+
+
+
+        document.getElementById("performance_measures").value =
+        "Complete cybersecurity training modules, apply security best practices, and demonstrate improved awareness of common cybersecurity risks and mitigation strategies.";
+
+
+
+        document.getElementById("feedback").value =
+        "Continue developing cybersecurity skills through hands-on learning, mentorship, and practical workplace experiences.";
+
+
+
+        document.getElementById("progress_updates").value =
+        "Completed introductory cybersecurity training and started applying security concepts during daily technical tasks.";
+
+
+
+        addAIMessage(
+        "I updated your Improve Cybersecurity Knowledge goal with recommended performance plan content."
+        );
+
+
+    },500);
+
+
+
+    addAIMessage(
+`
+I updated your Improve Cybersecurity Knowledge goal with recommended performance plan content.
+
+Recommended learning:
+
+📘 Cybersecurity Fundamentals Course
+
+This course will help you build knowledge in:
+• Cybersecurity principles
+• Threat identification
+• Secure technology practices
+• Risk management
+• Data protection best practices
+
+Completing this course will support your goal development and improve your ability to apply cybersecurity practices in the workplace.
+`
+);
+
+}
+
+
+
+
+
+function addAIMessage(message){
+
+    let chat =
+    document.getElementById("chatArea");
+
+
+    chat.innerHTML +=
+    `
+    <div class="ai-message">
+        ${message}
+    </div>
+    `;
+
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
+
+
+
+function askAI(){
+
+
+    let input =
+    document.getElementById("aiInput")
+    .value
+    .toLowerCase();
+
+
+
+    if(input.trim()===""){
+        return;
+    }
+
+
+
+    let response = "";
+
+
+
+    if(
+        input.includes("cybersecurity") ||
+        input.includes("improve cybersecurity") ||
+        input.includes("cybersecurity goal")
+    ){
+
+        updateCybersecurityGoal();
+
+        response =
+        "I found your Improve Cybersecurity Knowledge goal and filled in recommended content.";
+
+    }
+
+    else if(
+    (input.includes("course") ||
+     input.includes("courses") ||
+     input.includes("training"))
+     
+     
+){
+
+    response = `
+Yes. To improve your Cybersecurity Knowledge goal, I recommend the following course:
+
+📘 Learn ON Course  
+MPBSD-CYBER - Cyber Security Basics: Combatting Cyber Threats
+
+This course will help strengthen your understanding of:
+
+• Cybersecurity fundamentals  
+• Common cyber threats and attack methods  
+• Security best practices  
+• Protecting organizational information  
+• Recognizing and responding to cyber risks  
+
+Completing this course would support your performance goal by improving your cybersecurity awareness and helping you apply secure technology practices in the workplace.
+`;
+
+}
+
+    else if(
+        input.includes("create") ||
+        input.includes("goal")
+    ){
+
+        createDemoGoal();
+
+        response =
+        "I created a sample performance goal and filled in the form for you.";
+
+    }
+
+    else{
+
+        response =
+        "Try asking me to improve cybersecurity knowledge or create a demo goal.";
+
+    }
+
+
+
+
+    let chat =
+    document.getElementById("chatArea");
+
+
+
+    chat.innerHTML +=
+
+    `
+    <div class="user-message">
+
+    ${input}
+
+    </div>
+    `;
+
+
+
+    chat.innerHTML +=
+
+    `
+    <div class="ai-message">
+
+    ${response}
+
+    </div>
+    `;
+
+
+
+    document.getElementById("aiInput").value="";
+
+
+    chat.scrollTop =
+    chat.scrollHeight;
+
+
+}
+
+
+
+
+
+function createDemoGoal(){
+
+
+
+// Title
+
+document.getElementById("goal_title").value =
+"Improve IT Support and Digital Service Delivery";
+
+
+
+
+
+// Dates
+
+document.getElementById("start_date").value =
+"2026-05-01";
+
+
+document.getElementById("end_date").value =
+"2026-08-31";
+
+
+
+
+
+
+
+// Description
+
+document.getElementById("description").value =
+
+"Develop technical skills by supporting workplace technology solutions, troubleshooting issues, and improving digital services for employees. Gain experience with IT operations, user support, and technology processes within the organization.";
+
+
+
+
+
+
+
+// Organizational Priority
+
+document.getElementById("organizational_priority").value =
+
+"Support efficient digital operations by improving technology services, user experience, and workplace productivity.";
+
+
+
+
+
+
+
+
+// Performance Measures
+
+document.getElementById("performance_measures").value =
+
+"• Complete assigned IT support tasks within expected timelines.\n\n• Improve troubleshooting and technical problem-solving skills.\n\n• Successfully support users with hardware and software issues.";
+
+
+
+
+
+
+
+
+// Feedback
+
+document.getElementById("feedback").value =
+
+"Manager feedback will be added throughout the placement.";
+
+
+
+
+
+
+
+
+// Progress Updates
+
+document.getElementById("progress_updates").value =
+
+"Initial goal created with OPS Connect AI assistance.";
+
+
+
+
+
+}
+
+
+
+
+window.addEventListener("load", function(){
+
+
+    if(sessionStorage.getItem("fillCybersecurityGoal")){
+
+
+        sessionStorage.removeItem("fillCybersecurityGoal");
+
+
+        setTimeout(function(){
+
+
+            let description =
+            document.getElementById("description");
+
+
+            let priority =
+            document.getElementById("organizational_priority");
+
+
+            let measures =
+            document.getElementById("performance_measures");
+
+
+            let feedback =
+            document.getElementById("feedback");
+
+
+            let progress =
+            document.getElementById("progress_updates");
+
+
+
+            if(description){
+
+                description.value =
+                "Develop a stronger understanding of cybersecurity principles, threat prevention strategies, and secure technology practices. Apply this knowledge when supporting workplace systems and digital services.";
+
+            }
+
+
+
+            if(priority){
+
+                priority.value =
+                "Improve cybersecurity awareness and contribute to protecting organizational information assets through secure practices.";
+
+            }
+
+
+
+            if(measures){
+
+                measures.value =
+                "Complete cybersecurity training modules, apply security best practices, and demonstrate improved awareness of common cybersecurity risks and mitigation strategies.";
+
+            }
+
+
+
+            if(feedback){
+
+                feedback.value =
+                "Continue developing cybersecurity skills through hands-on learning, mentorship, and practical workplace experiences.";
+
+            }
+
+
+
+            if(progress){
+
+                progress.value =
+                "Completed introductory cybersecurity training and started applying security concepts during daily technical tasks.";
+
+            }
+
+
+
+        },1000);
+
+
+    }
+
+
+});
+
+
+</script>   
+
+
+</html>
+
+

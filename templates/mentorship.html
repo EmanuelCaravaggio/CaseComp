@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mentorship</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+
+    <!-- Top Navigation -->
+    <nav class="topbar">
+
+        <div class="topbar-brand">
+
+            <img src="{{ url_for('static', filename='logo_ops.png') }}" 
+                 class="topbar-logo"
+                 alt="Connect Logo">
+
+            <span> OPS Connect</span>
+
+        </div>
+
+
+        <div class="topbar-user">
+
+            <span>
+                Hi, {{ user_name }}
+            </span>
+
+
+            <button 
+            class="accessibility-btn"
+            onclick="toggleAccessibility()">
+
+            Accessibility
+
+            </button>
+
+
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                Log out
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-tabs">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+
+        <a href="{{ url_for('mentorship') }}" class="active">
+            Mentorship
+        </a>
+
+
+        <a href="{{ url_for('performance') }}">
+
+        Performance Plan
+
+        </a>
+
+
+
+        <a href="{{ url_for('connections') }}">
+            Connections
+        </a>
+
+
+    </nav>
+
+
+
+    <main class="dashboard-container">
+
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+
+        <!-- Page Header -->
+
+        <section class="welcome-card mentorship-hero">
+
+
+            <div>
+
+                <h1>
+                    Create your Mentee Profile
+                </h1>
+
+
+                <p>
+                    Add details that will help you connect with a mentor.
+                    The information you enter will appear on your Mentorship Profile.
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+        <!-- Mentorship Form -->
+
+        <section class="mentorship-form-card">
+
+
+            <form method="POST" action="{{ url_for('mentorship') }}">
+
+
+
+                <!-- Basic Profile Details -->
+
+
+                <div class="form-section">
+
+
+                    <h2>
+                        Profile Details
+                    </h2>
+
+
+                    <p class="card-subtitle">
+                        These details will appear on any mentorship profiles you create.
+                    </p>
+
+
+
+                    <label for="pronouns">
+                        Pronouns 
+                        <span class="optional-text">
+                            (optional)
+                        </span>
+                    </label>
+
+
+
+                    <select id="pronouns" name="pronouns">
+
+                        <option value="" selected>
+                            Select pronouns
+                        </option>
+
+                        <option value="She/Her">
+                            She/Her
+                        </option>
+
+                        <option value="He/Him">
+                            He/Him
+                        </option>
+
+                        <option value="They/Them">
+                            They/Them
+                        </option>
+
+                        <option value="Prefer not to say">
+                            Prefer not to say
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+
+
+
+
+                    <label for="location">
+                        Location 
+                        <span class="optional-text">
+                            (optional)
+                        </span>
+                    </label>
+
+
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Type or select your location"
+                    >
+
+
+
+
+
+                    <label for="language">
+
+                        Language 
+
+                        <span class="optional-text">
+                            (optional)
+                        </span>
+
+                    </label>
+
+
+
+
+                    <input
+                        type="text"
+                        id="language"
+                        name="language"
+                        placeholder="Add a language"
+                    >
+
+
+
+                </div>
+
+
+
+
+
+                <!-- Mentorship Goals -->
+
+
+                <div class="form-section">
+
+
+                    <h2>
+                        My Mentorship Goals
+                    </h2>
+
+
+
+                    <p class="card-subtitle">
+
+                        Share what you want to gain from mentorship and what might help your mentor get to know you.
+
+                    </p>
+
+
+
+
+                    <label for="mentorship_goals">
+
+                        My mentorship goals 
+
+                        <span class="optional-text">
+                            (optional)
+                        </span>
+
+                    </label>
+
+
+
+
+                    <textarea
+                        id="mentorship_goals"
+                        name="mentorship_goals"
+                        rows="6"
+                        maxlength="1500"
+                        placeholder="Example: I want to improve my communication skills, learn more about career growth, and better understand different roles across the organization."
+                    ></textarea>
+
+
+
+
+                    <div class="character-hint">
+
+                        1,500 characters maximum
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+                <!-- Learning Preferences -->
+
+
+                <div class="form-section">
+
+
+                    <h2>
+                        I Learn Best Through
+                    </h2>
+
+
+
+                    <p class="card-subtitle">
+
+                        Select all that apply.
+
+                    </p>
+
+
+
+
+                    <div class="checkbox-grid">
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Job shadowing">
+
+                            <span>
+                                Job shadowing
+                            </span>
+
+                        </label>
+
+
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Discussion">
+
+                            <span>
+                                Discussion
+                            </span>
+
+                        </label>
+
+
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Courses">
+
+                            <span>
+                                Courses
+                            </span>
+
+                        </label>
+
+
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Videos">
+
+                            <span>
+                                Videos
+                            </span>
+
+                        </label>
+
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Podcasts">
+
+                            <span>
+                                Podcasts
+                            </span>
+
+                        </label>
+
+
+
+                        <label class="checkbox-card">
+
+                            <input 
+                                type="checkbox" 
+                                name="learning_methods" 
+                                value="Books/articles">
+
+                            <span>
+                                Books/articles
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+
+
+                                        <label for="learning_other">
+
+                        Other 
+
+                        <span class="optional-text">
+                            (optional)
+                        </span>
+
+                    </label>
+
+
+
+                    <input
+                        type="text"
+                        id="learning_other"
+                        name="learning_other"
+                        maxlength="150"
+                        placeholder="Tell us another way you learn best"
+                    >
+
+
+
+                    <div class="character-hint">
+                        150 characters maximum
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+                <!-- Employee Network -->
+
+
+                <div class="form-section">
+
+
+                    <h2>
+                        Employee Network
+                    </h2>
+
+
+
+                    <p class="card-subtitle">
+
+                        This will appear on your mentorship profile and will be searchable.
+                        Select any networks you belong to.
+
+                    </p>
+
+
+
+
+                    <div class="checkbox-grid employee-network-grid">
+
+
+
+                        {% set networks = [
+                            "No employee network",
+                            "BOPSers",
+                            "DAC",
+                            "EANG",
+                            "FPLG",
+                            "FrancoGO",
+                            "HolaOPS",
+                            "Nation to Nation",
+                            "OPN",
+                            "SAN",
+                            "Shalom OPS",
+                            "TiPS",
+                            "TOPS",
+                            "TSN",
+                            "UMMA",
+                            "WiG"
+                        ] %}
+
+
+
+                        {% for network in networks %}
+
+                            <label class="checkbox-card">
+
+                                <input 
+                                    type="checkbox"
+                                    name="employee_networks"
+                                    value="{{ network }}"
+                                >
+
+                                <span>
+                                    {{ network }}
+                                </span>
+
+                            </label>
+
+
+                        {% endfor %}
+
+
+
+                    </div>
+
+
+
+
+
+                    <label for="employee_network_other">
+
+                        Other 
+
+                        <span class="optional-text">
+                            (not searchable)
+                        </span>
+
+                    </label>
+
+
+
+
+                    <input
+                        type="text"
+                        id="employee_network_other"
+                        name="employee_network_other"
+                        maxlength="150"
+                        placeholder="Add another employee network"
+                    >
+
+
+
+
+                    <div class="character-hint">
+
+                        150 characters maximum
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <!-- Meeting Preferences -->
+
+
+                <div class="form-section">
+
+
+                    <h2>
+                        Meeting Preferences
+                    </h2>
+
+
+
+                    <p class="card-subtitle">
+
+                        Share how often and how long you would like to meet.
+                        You are not committed to these choices — once matched,
+                        you and your mentor can decide what works best.
+
+                    </p>
+
+
+
+
+
+
+
+                    <div class="preference-group">
+
+
+                        <h3>
+
+                            How would you like to meet?
+
+                            <span class="required-star">
+                                *
+                            </span>
+
+                        </h3>
+
+
+
+                        <p class="small-help-text">
+
+                            This will be searchable by potential mentors.
+                            Select all that apply.
+
+                        </p>
+
+
+
+
+
+                        <div class="checkbox-grid">
+
+
+
+                            <label class="checkbox-card">
+
+                                <input 
+                                    type="checkbox"
+                                    name="meeting_types"
+                                    value="Video calls"
+                                    required
+                                >
+
+                                <span>
+                                    Video calls
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input 
+                                    type="checkbox"
+                                    name="meeting_types"
+                                    value="Audio calls"
+                                >
+
+                                <span>
+                                    Audio calls
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input 
+                                    type="checkbox"
+                                    name="meeting_types"
+                                    value="In person in office"
+                                >
+
+                                <span>
+                                    In person, in the office
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input 
+                                    type="checkbox"
+                                    name="meeting_types"
+                                    value="In person out of office"
+                                >
+
+                                <span>
+                                    In person, out of the office
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="preference-group">
+
+
+                        <h3>
+
+                            How often would you like to meet?
+
+                            <span class="required-star">
+                                *
+                            </span>
+
+                        </h3>
+
+
+
+
+                        <div class="checkbox-grid">
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_frequency"
+                                    value="Weekly"
+                                    required
+                                >
+
+                                <span>
+                                    Weekly
+                                </span>
+
+                            </label>
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_frequency"
+                                    value="Every 2 weeks"
+                                >
+
+                                <span>
+                                    Every 2 weeks
+                                </span>
+
+                            </label>
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_frequency"
+                                    value="Monthly"
+                                >
+
+                                <span>
+                                    Monthly
+                                </span>
+
+                            </label>
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_frequency"
+                                    value="Every 2 months"
+                                >
+
+                                <span>
+                                    Every 2 months
+                                </span>
+
+                            </label>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="preference-group">
+
+
+                        <h3>
+
+                            How long do you want your meetings to be?
+
+                            <span class="required-star">
+                                *
+                            </span>
+
+                        </h3>
+
+
+
+
+                        <div class="checkbox-grid">
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_length"
+                                    value="30 minutes"
+                                    required
+                                >
+
+                                <span>
+                                    30 minutes
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_length"
+                                    value="45 minutes"
+                                >
+
+                                <span>
+                                    45 minutes
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="meeting_length"
+                                    value="1 hour"
+                                >
+
+                                <span>
+                                    1 hour
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="preference-group">
+
+
+                        <h3>
+
+                            How long do you want to be mentored?
+
+                            <span class="required-star">
+                                *
+                            </span>
+
+                        </h3>
+
+
+
+
+
+                        <div class="checkbox-grid">
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="mentorship_duration"
+                                    value="Short-term learning need"
+                                    required
+                                >
+
+                                <span>
+                                    For a short-term learning need
+                                </span>
+
+                            </label>
+
+
+
+
+
+                            <label class="checkbox-card">
+
+                                <input
+                                    type="checkbox"
+                                    name="mentorship_duration"
+                                    value="Long-term development"
+                                >
+
+                                <span>
+                                    For long-term development
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+                <!-- Form Actions -->
+
+
+                <div class="form-actions">
+
+
+
+                    <a 
+                        href="{{ url_for('dashboard') }}"
+                        class="secondary-btn"
+                    >
+
+                        Cancel
+
+                    </a>
+
+
+
+
+
+                    <button 
+                        type="submit"
+                        class="primary-btn"
+                    >
+
+                        Save Mentee Profile
+
+                    </button>
+
+
+
+
+                </div>
+
+
+
+
+
+            </form>
+
+
+
+        </section>
+
+
+
+    </main>
+
+
+
+</body>
+
+</html>
